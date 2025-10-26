@@ -3,20 +3,23 @@ import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Nolan Hughes — Front-End Engineer",
-  description: "Senior Front-End Engineer. I build fast, maintainable UIs with React/Next.js, ship AI-powered features, and optimize performance where it matters.",
+  title: "Nolan Hughes — Principal Software Engineer",
+  description:
+    "Principal Software Engineer with 10+ years of experience in React, Vue.js, and TypeScript. I architect scalable solutions, mentor teams, and optimize performance where it matters. Currently at Demandbase.",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <head>
         <ColorSchemeScript />
       </head>
       <body>
-        <MantineProvider defaultColorScheme="dark">
-          {children}
-        </MantineProvider>
+        <MantineProvider defaultColorScheme="dark">{children}</MantineProvider>
       </body>
     </html>
   );
