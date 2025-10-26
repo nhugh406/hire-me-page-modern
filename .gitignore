@@ -1,0 +1,8 @@
+
+
+#Ignore cursor AI rules
+.cursor/rules/codacy.mdc
+.next
+.env*
+.DS_Store
+node_modules
