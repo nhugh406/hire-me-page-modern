@@ -116,7 +116,7 @@ export default function Page() {
                   <ThemeIcon
                     size={48}
                     radius="md"
-                    color="grape"
+                    color="cyan"
                     mb="md"
                     variant="light"
                     className="icon-glow"
@@ -168,7 +168,7 @@ export default function Page() {
                   <ThemeIcon
                     size={48}
                     radius="md"
-                    color="grape"
+                    color="blue"
                     mb="md"
                     variant="light"
                     className="icon-glow"
@@ -220,7 +220,7 @@ export default function Page() {
                   <ThemeIcon
                     size={48}
                     radius="md"
-                    color="grape"
+                    color="violet"
                     mb="md"
                     variant="light"
                     className="icon-glow"

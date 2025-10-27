@@ -4,14 +4,7 @@ import { motion } from "framer-motion";
 
 export const GradientBackground = () => {
   return (
-    <div
-      style={{
-        inset: 0,
-        overflow: "hidden",
-        pointerEvents: "none",
-        zIndex: 0,
-      }}
-    >
+    <div className="gradient-background">
       {/* Animated gradient orbs */}
       <motion.div
         style={{
