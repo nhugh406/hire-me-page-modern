@@ -24,11 +24,7 @@ export const ContactSection = ({ email, linkedinUrl }: ContactSectionProps) => {
           I'm open to new opportunities and collaborations.
         </Text>
         <Group justify="center" gap="md">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="button-hover-scale"
-          >
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
               component="a"
               href={`mailto:${email}`}
@@ -39,11 +35,7 @@ export const ContactSection = ({ email, linkedinUrl }: ContactSectionProps) => {
               Email Me
             </Button>
           </motion.div>
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="button-hover-scale"
-          >
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
               component="a"
               href={linkedinUrl}

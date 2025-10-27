@@ -15,21 +15,22 @@ export const StaggerContainer = ({
   className,
 }: StaggerContainerProps) => {
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={{
-        visible: {
-          transition: {
-            staggerChildren: staggerDelay,
+    <div className={className}>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={{
+          visible: {
+            transition: {
+              staggerChildren: staggerDelay,
+            },
           },
-        },
-      }}
-      className={className}
-    >
-      {children}
-    </motion.div>
+        }}
+      >
+        {children}
+      </motion.div>
+    </div>
   );
 };
 
@@ -40,15 +41,16 @@ interface StaggerItemProps {
 
 export const StaggerItem = ({ children, className }: StaggerItemProps) => {
   return (
-    <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 30, scale: 0.95 },
-        visible: { opacity: 1, y: 0, scale: 1 },
-      }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={className}
-    >
-      {children}
-    </motion.div>
+    <div className={className}>
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, y: 30, scale: 0.95 },
+          visible: { opacity: 1, y: 0, scale: 1 },
+        }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        {children}
+      </motion.div>
+    </div>
   );
 };
