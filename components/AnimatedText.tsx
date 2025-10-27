@@ -15,7 +15,10 @@ export const AnimatedText = ({
   duration = 0.5,
 }: AnimatedTextProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref as React.RefObject<Element>, {
+    once: true,
+    margin: "-100px",
+  });
   const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
