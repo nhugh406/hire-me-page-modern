@@ -30,6 +30,7 @@ import {
 import Hero from "@/components/Hero";
 import { StatsSection } from "@/components/sections/StatsSection";
 import { ContactSection } from "@/components/sections/ContactSection";
+import { GradientBackground } from "@/components/sections/GradientBackground";
 import { useGitHubRepos } from "@/hooks/useGitHubRepos";
 import {
   EMAIL,
@@ -42,6 +43,7 @@ import {
   HOVER_COLORS,
 } from "@/constants/data";
 import { motion } from "framer-motion";
+import { AnimatedText } from "@/components/AnimatedText";
 
 export default function Page() {
   const { repos, loading } = useGitHubRepos();
@@ -80,17 +82,18 @@ export default function Page() {
         linkedin={LINKEDIN_URL}
       />
 
-      <Container size="lg" pt="xl" pb="xl">
-        <Stack gap="md">
+      <Container size="lg" pt="xl" pb="xl" className="gradient-container">
+        <GradientBackground />
+        <Stack gap="md" className="content-overlay">
           <StatsSection />
 
           <Divider my="xl" />
 
-          <Group mb="xl" gap="xs">
+          <Group mb="xl" gap="xs" align="center">
             <Title order={2} style={{ flex: 1 }}>
-              Technical strengths
+              <AnimatedText text="Technical strengths" />
             </Title>
-            <Badge size="xl" variant="light" color="blue">
+            <Badge size="xl" variant="light" color="grape">
               Core Expertise
             </Badge>
           </Group>
@@ -106,22 +109,30 @@ export default function Page() {
                   withBorder
                   radius="md"
                   p="lg"
-                  style={{
-                    height: "100%",
-                    transition: "all 0.3s ease",
-                    cursor: "default",
-                  }}
+                  className="card-hoverable tech-card"
                   onMouseEnter={handleHover}
                   onMouseLeave={handleHoverLeave}
                 >
-                  <ThemeIcon size={48} radius="md" color="blue" mb="md">
+                  <ThemeIcon
+                    size={48}
+                    radius="md"
+                    color="grape"
+                    mb="md"
+                    variant="light"
+                    className="icon-glow"
+                  >
                     <IconBolt size={28} />
                   </ThemeIcon>
                   <Title order={4}>Performance & architecture</Title>
                   <List
                     spacing="xs"
                     icon={
-                      <ThemeIcon size={20} radius="xl">
+                      <ThemeIcon
+                        size={20}
+                        radius="xl"
+                        color="grape"
+                        variant="light"
+                      >
                         <IconCheck size={14} />
                       </ThemeIcon>
                     }
@@ -150,22 +161,30 @@ export default function Page() {
                   withBorder
                   radius="md"
                   p="lg"
-                  style={{
-                    height: "100%",
-                    transition: "all 0.3s ease",
-                    cursor: "default",
-                  }}
+                  className="card-hoverable tech-card"
                   onMouseEnter={handleHover}
                   onMouseLeave={handleHoverLeave}
                 >
-                  <ThemeIcon size={48} radius="md" color="violet" mb="md">
+                  <ThemeIcon
+                    size={48}
+                    radius="md"
+                    color="grape"
+                    mb="md"
+                    variant="light"
+                    className="icon-glow"
+                  >
                     <IconTools size={28} />
                   </ThemeIcon>
                   <Title order={4}>Modernization & DX</Title>
                   <List
                     spacing="xs"
                     icon={
-                      <ThemeIcon size={20} radius="xl">
+                      <ThemeIcon
+                        size={20}
+                        radius="xl"
+                        color="grape"
+                        variant="light"
+                      >
                         <IconCheck size={14} />
                       </ThemeIcon>
                     }
@@ -194,22 +213,30 @@ export default function Page() {
                   withBorder
                   radius="md"
                   p="lg"
-                  style={{
-                    height: "100%",
-                    transition: "all 0.3s ease",
-                    cursor: "default",
-                  }}
+                  className="card-hoverable tech-card"
                   onMouseEnter={handleHover}
                   onMouseLeave={handleHoverLeave}
                 >
-                  <ThemeIcon size={48} radius="md" color="blue" mb="md">
+                  <ThemeIcon
+                    size={48}
+                    radius="md"
+                    color="grape"
+                    mb="md"
+                    variant="light"
+                    className="icon-glow"
+                  >
                     <IconRobot size={28} />
                   </ThemeIcon>
                   <Title order={4}>AI & product acceleration</Title>
                   <List
                     spacing="xs"
                     icon={
-                      <ThemeIcon size={20} radius="xl">
+                      <ThemeIcon
+                        size={20}
+                        radius="xl"
+                        color="grape"
+                        variant="light"
+                      >
                         <IconCheck size={14} />
                       </ThemeIcon>
                     }
@@ -227,11 +254,11 @@ export default function Page() {
 
           <Divider my="xl" />
 
-          <Group mb="xl" gap="xs">
+          <Group mb="xl" gap="xs" align="center">
             <Title order={2} style={{ flex: 1 }}>
-              Core Skills
+              <AnimatedText text="Core Skills" />
             </Title>
-            <Badge size="xl" variant="light" color="violet">
+            <Badge size="xl" variant="light" color="grape">
               Full Stack (FrontEnd Focused)
             </Badge>
           </Group>
@@ -261,7 +288,7 @@ export default function Page() {
                           key={skill}
                           size="lg"
                           variant="light"
-                          color="blue"
+                          color="grape"
                         >
                           {skill}
                         </Badge>
@@ -275,11 +302,11 @@ export default function Page() {
 
           <Divider my="xl" />
 
-          <Group mb="xl" gap="xs">
+          <Group mb="xl" gap="xs" align="center">
             <Title order={2} style={{ flex: 1 }}>
-              Professional Experience
+              <AnimatedText text="Professional Experience" />
             </Title>
-            <Badge size="xl" variant="light" color="blue">
+            <Badge size="xl" variant="light" color="grape">
               10+ Years
             </Badge>
           </Group>
@@ -297,7 +324,7 @@ export default function Page() {
                 withBorder
                 radius="md"
                 p="xl"
-                style={{ borderLeft: "4px solid var(--mantine-color-blue-6)" }}
+                className="experience-card border-purple-left"
               >
                 <Group justify="space-between" mb="xs" wrap="wrap">
                   <div>
@@ -318,7 +345,13 @@ export default function Page() {
                 <Stack gap="sm" mt="md">
                   {EXPERIENCE[0].achievements.map((achievement, i) => (
                     <Group key={i} gap="xs" align="flex-start" wrap="nowrap">
-                      <ThemeIcon size={20} radius="xl" color="blue" mt={2}>
+                      <ThemeIcon
+                        size={20}
+                        radius="xl"
+                        color="grape"
+                        variant="light"
+                        mt={2}
+                      >
                         <IconCheck size={14} />
                       </ThemeIcon>
                       <Text size="sm" style={{ flex: 1, lineHeight: 1.6 }}>
@@ -329,7 +362,7 @@ export default function Page() {
                 </Stack>
                 <Group gap="xs" mt="lg" wrap="wrap">
                   {EXPERIENCE[0].technologies.map((tech) => (
-                    <Badge key={tech} size="sm" variant="dot" color="blue">
+                    <Badge key={tech} size="sm" variant="dot" color="grape">
                       {tech}
                     </Badge>
                   ))}
@@ -401,7 +434,8 @@ export default function Page() {
                                 <ThemeIcon
                                   size={20}
                                   radius="xl"
-                                  color="blue"
+                                  color="grape"
+                                  variant="light"
                                   mt={2}
                                 >
                                   <IconCheck size={14} />
@@ -421,7 +455,7 @@ export default function Page() {
                                 key={tech}
                                 size="sm"
                                 variant="dot"
-                                color="blue"
+                                color="grape"
                               >
                                 {tech}
                               </Badge>
@@ -438,11 +472,11 @@ export default function Page() {
 
           <Divider my="lg" />
 
-          <Group mb="xl" gap="xs">
+          <Group mb="xl" gap="xs" align="center">
             <Title order={2} style={{ flex: 1 }}>
-              Featured projects
+              <AnimatedText text="Featured projects" />
             </Title>
-            <Badge size="xl" variant="light" color="violet">
+            <Badge size="xl" variant="light" color="grape">
               GitHub
             </Badge>
           </Group>
@@ -482,7 +516,7 @@ export default function Page() {
                         <Title order={4} size="h3">
                           {r.name}
                         </Title>
-                        <Badge size="lg" variant="light" color="blue">
+                        <Badge size="lg" variant="light" color="grape">
                           {r.language ?? "Code"}
                         </Badge>
                       </Group>
@@ -503,7 +537,7 @@ export default function Page() {
                           "💬 Minimal, fast real-time chat interface demonstrating WebSocket integration, Supabase realtime patterns, and smooth UI interactions."}
                       </Text>
                       <Group mt="md" gap="xs" mb="md">
-                        <Badge variant="filled" color="blue" size="lg">
+                        <Badge variant="filled" color="grape" size="lg">
                           ⭐ {r.stars} stars
                         </Badge>
                         <Badge variant="light" size="lg">
@@ -536,11 +570,11 @@ export default function Page() {
           <Divider my="lg" />
           <Divider my="lg" />
 
-          <Group mb="xl" gap="xs">
+          <Group mb="xl" gap="xs" align="center">
             <Title order={2} style={{ flex: 1 }}>
-              Services
+              <AnimatedText text="Services" />
             </Title>
-            <Badge size="xl" variant="light" color="blue">
+            <Badge size="xl" variant="light" color="grape">
               Available Now
             </Badge>
           </Group>

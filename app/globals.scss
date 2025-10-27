@@ -1,0 +1,223 @@
+// Global Styles
+:root {
+  --purple-primary: #a855f7;
+  --purple-primary-rgb: 168, 85, 247;
+  --purple-secondary: #8b5cf6;
+  --purple-secondary-rgb: 139, 92, 246;
+  --purple-pink: #ec4899;
+  --purple-pink-rgb: 236, 72, 153;
+
+  --bg-dark: rgba(255, 255, 255, 0.02);
+  --bg-gradient-start: rgba(168, 85, 247, 0.08);
+  --bg-gradient-end: rgba(236, 72, 153, 0.08);
+
+  --border-default: rgba(255, 255, 255, 0.1);
+  --border-purple: rgba(168, 85, 247, 0.2);
+  --border-purple-strong: rgba(168, 85, 247, 0.3);
+
+  --shadow-purple: rgba(168, 85, 247, 0.2);
+  --shadow-purple-glow: 0 4px 20px rgba(168, 85, 247, 0.2);
+  --shadow-pink: 0 4px 20px rgba(236, 72, 153, 0.4);
+}
+
+// Container and Layout
+.gradient-container {
+  position: relative;
+}
+
+.gradient-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.content-overlay {
+  position: relative;
+  z-index: 1;
+}
+
+// Card Styles
+.card-hoverable {
+  height: 100%;
+  transition: all 0.3s ease;
+  cursor: default;
+  background: var(--bg-dark);
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-purple-strong);
+    box-shadow: 0 8px 32px rgba(var(--purple-primary-rgb), 0.2);
+  }
+}
+
+.icon-glow {
+  box-shadow: var(--shadow-purple-glow);
+}
+
+// Stats Section
+.stat-card {
+  text-align: center;
+  border: 1px solid var(--border-purple-strong);
+  background: var(--bg-gradient-start);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    margin-top: -5px;
+  }
+}
+
+.stat-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+// Technical Strengths
+.tech-card {
+  height: 100%;
+  background: var(--bg-dark);
+}
+
+.tech-icon {
+  box-shadow: var(--shadow-teal-glow);
+}
+
+// Experience Section
+.experience-card {
+  border-left: 4px solid var(--teal-primary);
+  border-width: 1px 1px 1px 4px;
+}
+
+// Badges
+.badge-teal {
+  // Teal badges inherit from Mantine theme
+}
+
+// Services Section
+.service-card {
+  height: 100%;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+// Contact Section
+.contact-card {
+  background: linear-gradient(
+    135deg,
+    var(--bg-gradient-start) 0%,
+    var(--bg-gradient-end) 100%
+  );
+  border: 1px solid var(--border-purple);
+}
+
+.contact-button-primary {
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  box-shadow: 0 4px 20px rgba(var(--purple-primary-rgb), 0.4);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 6px 25px rgba(var(--purple-primary-rgb), 0.5);
+  }
+}
+
+.contact-button-secondary {
+  border: 1px solid var(--border-purple-strong);
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: var(--purple-primary);
+  }
+}
+
+// Button Animations
+.button-hover-scale {
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+// Skills Section
+.skill-badge {
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--purple-primary-rgb), 0.3);
+  }
+}
+
+// Repository Cards
+.repo-card {
+  height: 100%;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+// Animations
+@keyframes gradient-orb-1 {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(100px, 150px);
+  }
+  66% {
+    transform: translate(-100px, -150px);
+  }
+}
+
+@keyframes gradient-orb-2 {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(-120px, -100px);
+  }
+  66% {
+    transform: translate(120px, 100px);
+  }
+}
+
+@keyframes gradient-orb-3 {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(80px, 60px);
+  }
+  66% {
+    transform: translate(-80px, -60px);
+  }
+}
+
+// Utility Classes
+.text-gradient-purple {
+  background: linear-gradient(
+    135deg,
+    var(--purple-primary) 0%,
+    var(--purple-pink) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.border-purple-left {
+  border-left: 4px solid var(--purple-primary) !important;
+  border-width: 1px 1px 1px 4px !important;
+}

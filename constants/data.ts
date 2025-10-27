@@ -154,16 +154,16 @@ export const SKILLS = {
   ],
 };
 
-// Color palette for hover effects
+// Color palette for hover effects - modern purple & pink theme
 export const HOVER_COLORS = [
+  "rgba(168, 85, 247, 0.5)", // purple primary
   "rgba(139, 92, 246, 0.5)", // violet
-  "rgba(59, 130, 246, 0.5)", // blue
-  "rgba(34, 211, 238, 0.5)", // cyan
-  "rgba(14, 165, 233, 0.5)", // sky blue
-  "rgba(168, 85, 247, 0.5)", // purple
-  "rgba(67, 56, 202, 0.5)", // indigo
-  "rgba(99, 102, 241, 0.5)", // blue-violet
-  "rgba(147, 51, 234, 0.5)", // deep violet
+  "rgba(236, 72, 153, 0.5)", // pink
+  "rgba(217, 70, 239, 0.5)", // fuchsia
+  "rgba(192, 132, 252, 0.5)", // light purple
+  "rgba(224, 158, 181, 0.5)", // light pink
+  "rgba(147, 51, 234, 0.5)", // deep purple
+  "rgba(251, 113, 133, 0.5)", // rose
 ];
 
 // Helper function for random hover color

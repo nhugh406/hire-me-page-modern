@@ -16,15 +16,7 @@ export const ContactSection = ({ email, linkedinUrl }: ContactSectionProps) => {
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
     >
-      <Card
-        p="xl"
-        radius="xl"
-        style={{
-          background:
-            "linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(168,85,247,0.1) 100%)",
-          border: "1px solid rgba(255,255,255,0.1)",
-        }}
-      >
+      <Card p="xl" radius="xl" className="contact-card">
         <Title order={2} mb="md" ta="center">
           Let's Work Together
         </Title>
@@ -32,28 +24,38 @@ export const ContactSection = ({ email, linkedinUrl }: ContactSectionProps) => {
           I'm open to new opportunities and collaborations.
         </Text>
         <Group justify="center" gap="md">
-          <Button
-            component="a"
-            href={`mailto:${email}`}
-            size="lg"
-            leftSection={<IconExternalLink size={20} />}
-            style={{
-              background: "linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)",
-              boxShadow: "0 4px 14px rgba(59, 130, 246, 0.4)",
-            }}
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="button-hover-scale"
           >
-            Email Me
-          </Button>
-          <Button
-            component="a"
-            href={linkedinUrl}
-            target="_blank"
-            variant="light"
-            size="lg"
-            leftSection={<IconExternalLink size={20} />}
+            <Button
+              component="a"
+              href={`mailto:${email}`}
+              size="lg"
+              leftSection={<IconExternalLink size={20} />}
+              className="contact-button-primary"
+            >
+              Email Me
+            </Button>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="button-hover-scale"
           >
-            Connect on LinkedIn
-          </Button>
+            <Button
+              component="a"
+              href={linkedinUrl}
+              target="_blank"
+              variant="light"
+              size="lg"
+              leftSection={<IconExternalLink size={20} />}
+              className="contact-button-secondary"
+            >
+              Connect on LinkedIn
+            </Button>
+          </motion.div>
         </Group>
       </Card>
     </motion.div>
