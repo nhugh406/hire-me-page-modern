@@ -158,7 +158,7 @@ export default function Hero({ name, subtitle, intro, avatarUrl, ctaUrl, email, 
                       boxShadow: "0 4px 14px rgba(59, 130, 246, 0.4)",
                     }}
                   >
-                    Book an intro call
+                    Get in Touch
                   </Button>
                 )}
                 {email && (

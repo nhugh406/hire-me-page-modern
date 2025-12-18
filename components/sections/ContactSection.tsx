@@ -18,10 +18,10 @@ export const ContactSection = ({ email, linkedinUrl }: ContactSectionProps) => {
     >
       <Card p="xl" radius="xl" className="contact-card">
         <Title order={2} mb="md" ta="center">
-          Let's Work Together
+          Let's Connect
         </Title>
         <Text size="lg" ta="center" c="dimmed" mb="xl">
-          I'm open to new opportunities and collaborations.
+          Always interested in discussing technology, architecture, and innovative solutions.
         </Text>
         <Group justify="center" gap="md">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>

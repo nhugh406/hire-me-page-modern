@@ -4,9 +4,9 @@ import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Nolan Hughes — Principal Software Engineer",
+  title: "Nolan Hughes — Senior Frontend Engineer",
   description:
-    "Principal Software Engineer with 10+ years of experience in React, Vue.js, and TypeScript. I architect scalable solutions, mentor teams, and optimize performance where it matters. Currently at Demandbase.",
+    "Senior Frontend Engineer with 10+ years building scalable, performant web applications. Specializing in React, Vue.js, TypeScript, AI/LLM integration, and frontend modernization. Currently at Demandbase.",
 };
 
 export default function RootLayout({

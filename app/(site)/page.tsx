@@ -49,9 +49,9 @@ export default function Page() {
   const { repos, loading } = useGitHubRepos();
 
   const subtitle =
-    "🎯 Principal Software Engineer | Frontend Expert | React, Vue.js, TypeScript | Leadership & Mentorship";
+    "Senior Frontend Engineer | 10+ Years Building Scalable Web Applications | React, Vue.js, TypeScript | AI/LLM Integration";
   const intro =
-    "As a Principal Software Engineer with over a decade of experience in web development, I specialize in building intuitive, high-performance front-end applications using modern JavaScript frameworks like React and Vue. I architect scalable solutions, establish coding standards, and mentor growing teams of engineers. Currently leading frontend initiatives at Demandbase, building enterprise account-based marketing platforms. Throughout my career, I've founded engineering teams, architected design systems, introduced micro frontends, and driven innovation through leadership and hands-on development. Based in Parrish, FL—bringing that same passion for excellence to everything I build.";
+    "I'm a Senior Frontend Engineer with 10+ years of experience building scalable, performant, and user-centric web applications. I specialize in frontend modernization, architectural leadership, design systems, and integration of AI/LLM workflows—including agent-based automation using the Model Context Protocol (MCP). My focus is on clean architecture, developer experience improvement, and delivering intuitive, enterprise-grade solutions. Currently at Demandbase, I'm modernizing frontend architecture for Sales Intelligence platforms and designing AI-driven workflows that enhance both user experience and developer productivity. Throughout my career, I've founded engineering teams, architected design systems, introduced micro frontends, and consistently delivered measurable impact—from 85% developer efficiency improvements to 90% scalability gains. Based in Parrish, FL.";
 
   const handleHover = (e: React.MouseEvent<HTMLDivElement>) => {
     const randomColor =
@@ -93,7 +93,7 @@ export default function Page() {
             <Title order={2} style={{ flex: 1 }}>
               <AnimatedText text="Technical strengths" />
             </Title>
-            <Badge size="xl" variant="light" color="grape">
+            <Badge size="xl" variant="light" color="violet">
               Core Expertise
             </Badge>
           </Group>
@@ -130,7 +130,7 @@ export default function Page() {
                       <ThemeIcon
                         size={20}
                         radius="xl"
-                        color="grape"
+                        color="cyan"
                         variant="light"
                       >
                         <IconCheck size={14} />
@@ -182,7 +182,7 @@ export default function Page() {
                       <ThemeIcon
                         size={20}
                         radius="xl"
-                        color="grape"
+                        color="blue"
                         variant="light"
                       >
                         <IconCheck size={14} />
@@ -234,7 +234,7 @@ export default function Page() {
                       <ThemeIcon
                         size={20}
                         radius="xl"
-                        color="grape"
+                        color="violet"
                         variant="light"
                       >
                         <IconCheck size={14} />
@@ -258,7 +258,7 @@ export default function Page() {
             <Title order={2} style={{ flex: 1 }}>
               <AnimatedText text="Core Skills" />
             </Title>
-            <Badge size="xl" variant="light" color="grape">
+            <Badge size="xl" variant="light" color="violet">
               Full Stack (FrontEnd Focused)
             </Badge>
           </Group>
@@ -288,7 +288,7 @@ export default function Page() {
                           key={skill}
                           size="lg"
                           variant="light"
-                          color="grape"
+                          color="violet"
                         >
                           {skill}
                         </Badge>
@@ -306,7 +306,7 @@ export default function Page() {
             <Title order={2} style={{ flex: 1 }}>
               <AnimatedText text="Professional Experience" />
             </Title>
-            <Badge size="xl" variant="light" color="grape">
+            <Badge size="xl" variant="light" color="violet">
               10+ Years
             </Badge>
           </Group>
@@ -348,7 +348,7 @@ export default function Page() {
                       <ThemeIcon
                         size={20}
                         radius="xl"
-                        color="grape"
+                        color="violet"
                         variant="light"
                         mt={2}
                       >
@@ -362,7 +362,7 @@ export default function Page() {
                 </Stack>
                 <Group gap="xs" mt="lg" wrap="wrap">
                   {EXPERIENCE[0].technologies.map((tech) => (
-                    <Badge key={tech} size="sm" variant="dot" color="grape">
+                    <Badge key={tech} size="sm" variant="dot" color="violet">
                       {tech}
                     </Badge>
                   ))}
@@ -434,7 +434,7 @@ export default function Page() {
                                 <ThemeIcon
                                   size={20}
                                   radius="xl"
-                                  color="grape"
+                                  color="violet"
                                   variant="light"
                                   mt={2}
                                 >
@@ -455,7 +455,7 @@ export default function Page() {
                                 key={tech}
                                 size="sm"
                                 variant="dot"
-                                color="grape"
+                                color="violet"
                               >
                                 {tech}
                               </Badge>
@@ -476,7 +476,7 @@ export default function Page() {
             <Title order={2} style={{ flex: 1 }}>
               <AnimatedText text="Featured projects" />
             </Title>
-            <Badge size="xl" variant="light" color="grape">
+            <Badge size="xl" variant="light" color="violet">
               GitHub
             </Badge>
           </Group>
@@ -516,7 +516,7 @@ export default function Page() {
                         <Title order={4} size="h3">
                           {r.name}
                         </Title>
-                        <Badge size="lg" variant="light" color="grape">
+                        <Badge size="lg" variant="light" color="violet">
                           {r.language ?? "Code"}
                         </Badge>
                       </Group>
@@ -531,13 +531,15 @@ export default function Page() {
                       <Text size="sm" mt="xs" mb="md" c="dimmed">
                         {r.name === "notesmith" &&
                           "✅ Full-stack notes app built with Next.js, Supabase, and Mantine. Features include authentication, real-time updates, search functionality, and a polished UX."}
-                        {r.name === "absence-request" &&
-                          "📝 CRUD application for managing absence requests with clean Mantine UI patterns, form validation, and intuitive workflows."}
+                        {r.name === "HelixSuite" &&
+                          "🔧 Enterprise-grade application suite demonstrating advanced architecture patterns, scalable design, and production-ready implementations."}
+                        {r.name === "gralena" &&
+                          "🎨 Modern web application showcasing cutting-edge frontend technologies, responsive design, and intuitive user experience patterns."}
                         {r.name === "realtime-chat" &&
                           "💬 Minimal, fast real-time chat interface demonstrating WebSocket integration, Supabase realtime patterns, and smooth UI interactions."}
                       </Text>
                       <Group mt="md" gap="xs" mb="md">
-                        <Badge variant="filled" color="grape" size="lg">
+                        <Badge variant="filled" color="violet" size="lg">
                           ⭐ {r.stars} stars
                         </Badge>
                         <Badge variant="light" size="lg">
@@ -572,10 +574,10 @@ export default function Page() {
 
           <Group mb="xl" gap="xs" align="center">
             <Title order={2} style={{ flex: 1 }}>
-              <AnimatedText text="Services" />
+              <AnimatedText text="Areas of Expertise" />
             </Title>
-            <Badge size="xl" variant="light" color="grape">
-              Available Now
+            <Badge size="xl" variant="light" color="violet">
+              Specializations
             </Badge>
           </Group>
           <Grid>
@@ -597,26 +599,36 @@ export default function Page() {
                   <ThemeIcon size={48} radius="md" color="blue" mb="md">
                     <IconGauge size={28} />
                   </ThemeIcon>
-                  <Title order={4}>Frontend Performance Audit</Title>
+                  <Title order={4}>Performance & Optimization</Title>
                   <Text c="dimmed" mt="xs">
-                    1-week engagement · fixed scope
+                    Delivering measurable performance improvements
                   </Text>
                   <List
                     mt="sm"
                     spacing="xs"
                     icon={
-                      <ThemeIcon size={20} radius="xl">
+                      <ThemeIcon
+                        size={20}
+                        radius="xl"
+                        color="cyan"
+                        variant="light"
+                      >
                         <IconCheck size={14} />
                       </ThemeIcon>
                     }
                   >
                     <List.Item>
-                      Lighthouse, RUM, and profiler analysis
+                      Optimized rendering performance and reduced UI latency
+                      across complex enterprise surfaces
                     </List.Item>
                     <List.Item>
-                      Actionable plan (quick wins + roadmap)
+                      Leveraged RUM, Lighthouse, and profiling tools to identify
+                      and fix bottlenecks
                     </List.Item>
-                    <List.Item>Async Q&A follow-up</List.Item>
+                    <List.Item>
+                      Implemented advanced caching patterns (React Query) with
+                      clear data state indication
+                    </List.Item>
                   </List>
                 </Card>
               </motion.div>
@@ -639,22 +651,37 @@ export default function Page() {
                   <ThemeIcon size={48} radius="md" color="violet" mb="md">
                     <IconRefresh size={28} />
                   </ThemeIcon>
-                  <Title order={4}>React Modernization Sprint</Title>
+                  <Title order={4}>Frontend Modernization</Title>
                   <Text c="dimmed" mt="xs">
-                    2-week engagement
+                    Transforming legacy codebases into modern, maintainable
+                    systems
                   </Text>
                   <List
                     mt="sm"
                     spacing="xs"
                     icon={
-                      <ThemeIcon size={20} radius="xl">
+                      <ThemeIcon
+                        size={20}
+                        radius="xl"
+                        color="violet"
+                        variant="light"
+                      >
                         <IconCheck size={14} />
                       </ThemeIcon>
                     }
                   >
-                    <List.Item>Class → hooks with composable state</List.Item>
-                    <List.Item>Design tokens & Mantine systemization</List.Item>
-                    <List.Item>Refactors with tests & docs</List.Item>
+                    <List.Item>
+                      Modernized React applications, improving developer
+                      efficiency by 85%
+                    </List.Item>
+                    <List.Item>
+                      Migrated class components to hooks with composable state
+                      patterns
+                    </List.Item>
+                    <List.Item>
+                      Architected design systems and reusable component
+                      libraries used across multiple business units
+                    </List.Item>
                   </List>
                 </Card>
               </motion.div>
@@ -677,26 +704,36 @@ export default function Page() {
                   <ThemeIcon size={48} radius="md" color="blue" mb="md">
                     <IconDatabase size={28} />
                   </ThemeIcon>
-                  <Title order={4}>Data UI & Tables</Title>
+                  <Title order={4}>Enterprise Data Interfaces</Title>
                   <Text c="dimmed" mt="xs">
-                    AG Grid / TanStack Table expertise
+                    Building intuitive, data-rich user experiences at scale
                   </Text>
                   <List
                     mt="sm"
                     spacing="xs"
                     icon={
-                      <ThemeIcon size={20} radius="xl">
+                      <ThemeIcon
+                        size={20}
+                        radius="xl"
+                        color="blue"
+                        variant="light"
+                      >
                         <IconCheck size={14} />
                       </ThemeIcon>
                     }
                   >
                     <List.Item>
-                      Virtualization, infinite scroll, bulk actions
+                      Designed and built complex data management systems (file
+                      management, tables, dashboards)
                     </List.Item>
                     <List.Item>
-                      Filtering, grouping, role-based features
+                      Created enterprise-grade interfaces for Sales Intelligence
+                      and account-based marketing platforms
                     </List.Item>
-                    <List.Item>Ergonomic UX for high-volume data</List.Item>
+                    <List.Item>
+                      Delivered intuitive UX for high-volume, complex data
+                      workflows
+                    </List.Item>
                   </List>
                 </Card>
               </motion.div>
@@ -719,25 +756,35 @@ export default function Page() {
                   <ThemeIcon size={48} radius="md" color="orange" mb="md">
                     <IconBug size={28} />
                   </ThemeIcon>
-                  <Title order={4}>Testing & CI Hardening</Title>
+                  <Title order={4}>Quality & Automation</Title>
                   <Text c="dimmed" mt="xs">
-                    Playwright / RTL / GitLab CI
+                    Building robust, reliable systems through testing and
+                    automation
                   </Text>
                   <List
                     mt="sm"
                     spacing="xs"
                     icon={
-                      <ThemeIcon size={20} radius="xl">
+                      <ThemeIcon
+                        size={20}
+                        radius="xl"
+                        color="orange"
+                        variant="light"
+                      >
                         <IconCheck size={14} />
                       </ThemeIcon>
                     }
                   >
                     <List.Item>
-                      Regression harnesses for critical flows
+                      Expanded Playwright and integration test coverage to
+                      minimize regressions
                     </List.Item>
-                    <List.Item>Performance checks integrated with CI</List.Item>
                     <List.Item>
-                      Developer UX improvements (lint, type gates)
+                      Reduced rework by 80% through improved testing and code
+                      quality controls
+                    </List.Item>
+                    <List.Item>
+                      Modernized CI/CD pipelines and increased adoption by 75%
                     </List.Item>
                   </List>
                 </Card>
@@ -761,22 +808,36 @@ export default function Page() {
                   <ThemeIcon size={48} radius="md" color="violet" mb="md">
                     <IconRobot size={28} />
                   </ThemeIcon>
-                  <Title order={4}>AI Feature Prototyping</Title>
+                  <Title order={4}>AI & LLM Integration</Title>
                   <Text c="dimmed" mt="xs">
-                    Vercel/AWS serverless · Bedrock/Gemini/OpenAI
+                    Pioneering AI-driven workflows and automation
                   </Text>
                   <List
                     mt="sm"
                     spacing="xs"
                     icon={
-                      <ThemeIcon size={20} radius="xl">
+                      <ThemeIcon
+                        size={20}
+                        radius="xl"
+                        color="violet"
+                        variant="light"
+                      >
                         <IconCheck size={14} />
                       </ThemeIcon>
                     }
                   >
-                    <List.Item>LLM prompt/tool design and evals</List.Item>
-                    <List.Item>Human-in-the-loop review flows</List.Item>
-                    <List.Item>Secure integration patterns</List.Item>
+                    <List.Item>
+                      Designing and integrating AI-driven workflows including
+                      LLM-assisted UI flows
+                    </List.Item>
+                    <List.Item>
+                      Developing AI agents and MCP-based tool invocations for
+                      enhanced debugging and development
+                    </List.Item>
+                    <List.Item>
+                      Building secure, production-ready AI integrations with AWS
+                      Bedrock, Lambda, and API Gateway
+                    </List.Item>
                   </List>
                 </Card>
               </motion.div>
@@ -801,34 +862,46 @@ export default function Page() {
                   onMouseEnter={handleHover}
                   onMouseLeave={handleHoverLeave}
                 >
-                  <ThemeIcon size={48} radius="md" color="grape" mb="md">
+                  <ThemeIcon size={48} radius="md" color="violet" mb="md">
                     <IconCodeDots size={28} />
                   </ThemeIcon>
-                  <Title order={4}>Custom Solutions & Consulting</Title>
+                  <Title order={4}>Architecture & Leadership</Title>
                   <Text c="dimmed" mt="xs">
-                    Flexible engagement · Let's discuss your unique needs
+                    Building teams, systems, and scalable solutions
                   </Text>
                   <List
                     mt="sm"
                     spacing="xs"
                     icon={
-                      <ThemeIcon size={20} radius="xl" color="blue">
+                      <ThemeIcon
+                        size={20}
+                        radius="xl"
+                        color="violet"
+                        variant="light"
+                      >
                         <IconCheck size={14} />
                       </ThemeIcon>
                     }
                   >
                     <List.Item>
-                      Custom architecture design and implementation
+                      Founded and built engineering teams from the ground up,
+                      establishing standards and best practices
                     </List.Item>
                     <List.Item>
-                      Team augmentation and technical leadership
+                      Architected micro frontends using Webpack Module
+                      Federation for modular deployment
                     </List.Item>
                     <List.Item>
-                      Code reviews, mentoring, and best practices
+                      Led teams of 12+ engineers, mentoring and guiding
+                      architectural decisions
                     </List.Item>
-                    <List.Item>Emergency fixes and troubleshooting</List.Item>
                     <List.Item>
-                      Anything else you might need — let's talk!
+                      Refactored monolithic systems into modular components,
+                      improving scalability by 90%
+                    </List.Item>
+                    <List.Item>
+                      Served as technical liaison and SME for React, Vue, and
+                      JavaScript across organizations
                     </List.Item>
                   </List>
                 </Card>
