@@ -1,6 +1,7 @@
 import "@mantine/core/styles.css";
 import "./globals.scss";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
+import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function RootLayout({
       </head>
       <body>
         <MantineProvider defaultColorScheme="dark">{children}</MantineProvider>
+        <Analytics />
       </body>
     </html>
   );
