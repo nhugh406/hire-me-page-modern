@@ -4,7 +4,7 @@ export const LINKEDIN_URL =
   "https://www.linkedin.com/in/nolan-hughes-532b0721/";
 export const EMAIL = "nhugh406@gmail.com";
 export const LOCATION = "Parrish, FL · Remote (US)";
-export const PROFILE_IMAGE = "/avatar.jpg";
+export const PROFILE_IMAGE = "/api/avatar";
 
 export const NAME = "Nolan Hughes";
 export const HEADLINE =
@@ -65,8 +65,8 @@ export const SPOTLIGHT = {
       text: "The agent writes and publishes interactive React dashboards with live data. I built the compile/publish pipeline — self-repair loops, timeout & 5xx handling, and repair when a data source's schema drifts — plus sharing, version history, a template gallery, and canvas → Google Slides.",
     },
     {
-      title: "The Apps layer",
-      text: "I designed the platform's app system: package format, in-product catalog, desktop-style windowing shell, app builder, inter-app events, notification center, and a consent model for how far an app's scheduled tasks may act for a user.",
+      title: "The Apps layer — UI/UX",
+      text: "I helped improve the UI/UX and overall experience of the platform's Apps layer — the in-product catalog, desktop-style windowing shell, and how apps open, move, and notify — tightening usability and polish across the surface.",
     },
     {
       title: "Real-time collaboration & voice",
@@ -107,7 +107,7 @@ export const EXPERIENCE = [
       "Core engineer on Mojo, an agentic AI marketing workspace. ~170 tickets in 4 months across frontend, agent, and API layers.",
     achievements: [
       "Owned Canvases end to end: agent-written, live-data React dashboards with a compile/publish pipeline, self-repair, sharing, version history, and export to Google Slides",
-      "Designed the Apps layer: package format, catalog, windowing shell, app builder, inter-app events, and a consent model for scheduled-task authority",
+      "Helped improve the UI/UX and overall experience of the platform's Apps layer — app catalog, windowing shell, and in-product app flows",
       "Built real-time collaboration (shared chats, AI-coordinated rooms, presence) and live voice conversations with the agent",
       "Hardened LLM behavior in production: corrupted tool-call recovery, model escalation, and long-thread crash fixes",
       "Re-architected the sales AI experience as a micro frontend in an Nx monorepo (~90 contributors) — embeddable AI chat + Canvas Mode other apps import",

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
       "I build interfaces where people & AI agents work together. Core engineer on Mojo @ Demandbase. Generative UI · LLM reliability · Real-time collaboration & voice.",
     url: "https://nolan-hughes.vercel.app",
     siteName: "Nolan Hughes",
-    images: [{ url: "/avatar.jpg", width: 1183, height: 1479, alt: "Nolan Hughes" }],
+    images: [{ url: "/api/avatar", width: 852, height: 852, alt: "Nolan Hughes" }],
     type: "website",
   },
   twitter: {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     title: "Nolan Hughes — Staff / Principal Frontend Engineer",
     description:
       "Generative UI, agentic product surfaces, and the LLM reliability layer that makes tool use hold up in production.",
-    images: ["/avatar.jpg"],
+    images: ["/api/avatar"],
   },
 };
 

@@ -192,8 +192,9 @@ export default function Page() {
                       <h3>{r.name}</h3>
                       <p>{REPO_BLURBS[r.name] || r.description || "Open-source work on GitHub."}</p>
                       <div className="repo-meta">
-                        <span className="badge">★ {r.stars} stars</span>
-                        <span className="badge">⑂ {r.forks} forks</span>
+                        {r.stars > 0 ? <span className="badge">★ {r.stars} stars</span> : null}
+                        {r.forks > 0 ? <span className="badge">⑂ {r.forks} forks</span> : null}
+                        {r.stars === 0 && r.forks === 0 ? <span className="badge">Public repo</span> : null}
                       </div>
                       <a className="repo-link" href={r.url} target="_blank" rel="noreferrer">View on GitHub →</a>
                     </article>
