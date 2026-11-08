@@ -38,7 +38,7 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body>
-        <MantineProvider defaultColorScheme="dark">{children}</MantineProvider>
+        <MantineProvider defaultColorScheme="light">{children}</MantineProvider>
         <Analytics />
       </body>
     </html>
