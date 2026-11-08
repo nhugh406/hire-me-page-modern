@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import {
   EMAIL,
@@ -14,9 +13,6 @@ import {
   SELECTED_REPOS,
   SKILLS,
 } from "@/constants/data";
-
-// framer-motion v11 + @types/react 19 typing workaround (same as elsewhere in this repo)
-const MotionDiv = motion.div as any;
 
 type WinId = "readme" | "mojo" | "monitor" | "experience" | "projects" | "skills" | "contact";
 
@@ -72,14 +68,46 @@ export default function Home() {
     contact: false,
   });
   const [order, setOrder] = useState<WinId[]>(["readme", "mojo", "monitor"]);
+  const [pos, setPos] = useState<Partial<Record<WinId, { x: number; y: number }>>>({});
+  const dragRef = useRef<{ id: WinId; startX: number; startY: number; baseX: number; baseY: number } | null>(null);
 
   const focus = (id: WinId) => setOrder((o) => [...o.filter((w) => w !== id), id]);
   const openWin = (id: WinId) => {
     setOpen((s) => ({ ...s, [id]: true }));
     focus(id);
+    // On the stacked mobile layout, bring the freshly opened window to the reader.
+    if (typeof window !== "undefined" && window.innerWidth <= 900) {
+      window.setTimeout(() => {
+        document.querySelector(`[data-win="${id}"]`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 80);
+    }
   };
   const closeWin = (id: WinId) => setOpen((s) => ({ ...s, [id]: false }));
   const zOf = (id: WinId) => 10 + order.indexOf(id);
+
+  // Dragging lives on the title bar only, via pointer events — the window body
+  // keeps normal touch behavior, so content scrolls instead of dragging.
+  const onTitlePointerDown = (id: WinId) => (e: React.PointerEvent<HTMLDivElement>) => {
+    if (typeof window !== "undefined" && window.innerWidth <= 900) return; // stacked layout: no dragging
+    if (e.button !== undefined && e.button !== 0) return;
+    if ((e.target as HTMLElement).closest("button")) return; // let the close light click
+    focus(id);
+    const base = pos[id] ?? { x: 0, y: 0 };
+    dragRef.current = { id, startX: e.clientX, startY: e.clientY, baseX: base.x, baseY: base.y };
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+  const onTitlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const d = dragRef.current;
+    if (!d) return;
+    const maxX = window.innerWidth - 160;
+    const maxY = window.innerHeight - 120;
+    const x = Math.min(Math.max(d.baseX + (e.clientX - d.startX), -560), maxX);
+    const y = Math.min(Math.max(d.baseY + (e.clientY - d.startY), -80), maxY);
+    setPos((p) => ({ ...p, [d.id]: { x, y } }));
+  };
+  const onTitlePointerUp = () => {
+    dragRef.current = null;
+  };
 
   return (
     <main className="os">
@@ -99,7 +127,7 @@ export default function Home() {
       <div className="os-desktop" ref={desktopRef}>
         <p className="os-wallpaper-title">
           The desktop is the demo.
-          <span>I build windowing workspaces for people &amp; AI agents — so my portfolio is one. Drag the windows. Close things. The dock brings them back.</span>
+          <span>I build windowing workspaces for people &amp; AI agents — so my portfolio is one. Poke around: windows drag by their title bars on desktop, and stack like apps on mobile. Close things freely — the dock brings them back.</span>
         </p>
 
         <div className="os-icons">
@@ -116,17 +144,23 @@ export default function Home() {
         </div>
 
         {WINDOWS.filter((w) => open[w.id]).map((w) => (
-          <MotionDiv
+          <div
             key={w.id}
+            data-win={w.id}
             className={`os-window ${w.cls} ${order[order.length - 1] === w.id ? "os-window-active" : ""}`}
-            style={{ zIndex: zOf(w.id) }}
-            drag
-            dragConstraints={desktopRef}
-            dragMomentum={false}
-            onMouseDown={() => focus(w.id)}
-            onTouchStart={() => focus(w.id)}
+            style={{
+              zIndex: zOf(w.id),
+              transform: pos[w.id] ? `translate(${pos[w.id]!.x}px, ${pos[w.id]!.y}px)` : undefined,
+            }}
+            onPointerDown={() => focus(w.id)}
           >
-            <div className="os-titlebar">
+            <div
+              className="os-titlebar"
+              onPointerDown={onTitlePointerDown(w.id)}
+              onPointerMove={onTitlePointerMove}
+              onPointerUp={onTitlePointerUp}
+              onPointerCancel={onTitlePointerUp}
+            >
               <span className="os-lights">
                 <button aria-label={`Close ${w.title}`} className="os-light os-light-close" onClick={() => closeWin(w.id)}>×</button>
                 <span className="os-light os-light-min" />
@@ -267,7 +301,7 @@ export default function Home() {
                 </div>
               )}
             </div>
-          </MotionDiv>
+          </div>
         ))}
 
         <p className="os-hint">Tip: every window drags by its title bar. Red dot closes — dock and desktop icons reopen.</p>

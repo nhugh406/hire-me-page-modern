@@ -39,7 +39,7 @@ a{color:var(--os-accent)}
 .os-menu-right{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:.8rem;opacity:.95}
 .os-open-dot{width:9px;height:9px;border-radius:50%;background:#34d399;display:inline-block;box-shadow:0 0 8px #34d399}
 .os-clock{margin-left:10px;font-variant-numeric:tabular-nums;opacity:.85}
-@media (max-width:760px){.os-menu-item{display:none}.os-menu-strong{display:block}}
+@media (max-width:760px){.os-menu-item{display:none}.os-menu-strong{display:block}.os-clock{display:none}.os-menubar{gap:10px}}
 
 /* ---------- Desktop ---------- */
 .os-desktop{position:relative;flex:1 1 auto;min-height:calc(100vh - 38px)}
@@ -80,8 +80,9 @@ a{color:var(--os-accent)}
 }
 .os-window-active{box-shadow:0 24px 60px rgba(8,4,24,.5),0 4px 14px rgba(8,4,24,.3)}
 .win-readme{left:3.5%;top:196px;width:540px}
-.win-mojo{left:41%;top:54px;width:600px}
-.win-monitor{left:41%;top:592px;width:600px}
+.win-mojo{left:41%;top:40px;width:600px}
+.win-monitor{left:41%;top:612px;width:600px}
+.win-monitor .os-body{padding:12px 18px}
 .win-exp{left:30%;top:120px;width:640px}
 .win-projects{left:24%;top:90px;width:660px}
 .win-skills{left:44%;top:150px;width:520px}
@@ -90,6 +91,7 @@ a{color:var(--os-accent)}
 .os-titlebar{
   flex:0 0 40px;display:flex;align-items:center;gap:10px;padding:0 12px;cursor:grab;
   background:linear-gradient(#f4f1fb,#e8e2f5);border-bottom:1px solid var(--os-line);
+  touch-action:none;user-select:none;-webkit-user-select:none;
 }
 .os-titlebar:active{cursor:grabbing}
 .os-lights{display:flex;gap:8px;align-items:center}
@@ -116,8 +118,8 @@ a{color:var(--os-accent)}
 
 /* Activity monitor */
 .os-monitor{display:grid;grid-template-columns:1fr 1fr;gap:2px 24px}
-.os-monitor-foot{grid-column:1/-1}
-.os-proc{margin-bottom:12px}
+.os-monitor-foot{grid-column:1/-1;margin-top:4px}
+.os-proc{margin-bottom:8px}
 .os-proc-top{display:flex;flex-direction:column;gap:1px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8rem}
 .os-proc-name{font-weight:700}
 .os-proc-detail{color:var(--os-muted)}
@@ -179,16 +181,31 @@ a.os-file:hover{border-color:var(--os-accent)}
 .os-dock-open::after{content:"";position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:#fff}
 .os-dock-sep{width:1px;height:38px;background:rgba(255,255,255,.25)}
 
-/* ---------- Mobile: windows become a stack ---------- */
+/* ---------- Mobile: the OS becomes an app stack ----------
+   No dragging, no absolute positioning: the wallpaper title and a
+   launcher panel sit on top, windows stack as full-width cards and
+   the page scrolls like any mobile site. Tapping an icon opens its
+   window and scrolls it into view. */
 @media (max-width:900px){
   .os-desktop{display:flex;flex-direction:column;padding:14px 12px 110px;gap:14px}
-  .os-wallpaper-title{position:static;max-width:none}
-  .os-icons{position:static;flex-direction:row;flex-wrap:wrap;order:2}
+  .os-wallpaper-title{position:static;max-width:none;font-size:2rem}
+  .os-wallpaper-title span{font-size:.94rem}
+  .os-icons{
+    position:static;flex-direction:row;flex-wrap:wrap;order:2;gap:6px;
+    background:rgba(20,12,40,.45);border:1px solid rgba(255,255,255,.16);
+    border-radius:18px;padding:10px 6px;backdrop-filter:blur(10px);
+  }
   .os-icon{width:72px}
-  .os-window{position:relative!important;left:auto;top:auto;width:auto;max-height:none;order:3}
-  .os-body{overflow:visible}
+  .os-window{
+    position:relative!important;left:auto;top:auto;width:auto;max-height:none;order:3;
+    transform:none!important;scroll-margin-top:52px;
+  }
+  .os-titlebar{cursor:default;touch-action:auto}
+  .os-body{overflow:visible;padding:16px}
   .os-finder{grid-template-columns:1fr}
+  .os-monitor{grid-template-columns:1fr}
   .os-dock{max-width:calc(100vw - 16px);overflow-x:auto}
+  .os-dock-item:hover{transform:none}
 }
 
 /* ---------- Résumé page ---------- */
