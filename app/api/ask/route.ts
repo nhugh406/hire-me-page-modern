@@ -121,6 +121,7 @@ export async function POST(req: NextRequest) {
       body: JSON.stringify({
         model: "claude-haiku-4-5",
         max_tokens: 600,
+        temperature: 0.3,
         system,
         messages,
       }),

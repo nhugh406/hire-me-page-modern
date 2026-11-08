@@ -19,22 +19,6 @@ import {
   TICKER,
 } from "@/constants/data";
 
-function Stamp() {
-  return (
-    <div className="stamp" aria-hidden="true">
-      <svg viewBox="0 0 120 120">
-        <defs>
-          <path id="stamp-circle" d="M 60,60 m -44,0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0" />
-        </defs>
-        <text>
-          <textPath href="#stamp-circle">OPEN TO WORK • STAFF / PRINCIPAL • REMOTE US •</textPath>
-        </text>
-      </svg>
-      <span className="stamp-star">✦</span>
-    </div>
-  );
-}
-
 export default function Home() {
   return (
     <main className="ed">
@@ -82,7 +66,6 @@ export default function Home() {
           <div className="ed-photo-frame">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={PROFILE_IMAGE} alt="Nolan Hughes" />
-            <Stamp />
           </div>
           <p className="ed-photo-cap">FIG. 01 — THE ENGINEER IN QUESTION. PARRISH, FL.</p>
         </div>
