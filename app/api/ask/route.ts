@@ -4,7 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
  * /api/ask powers the "Ask Nolan's Agent" widget on the portfolio.
  * The model answers ONLY from the record in SYSTEM below, plus a live
  * snapshot of Nolan's public GitHub fetched (and cached) at request time.
- * Key comes from the ANTHROPIC_API_KEY env var (Vercel project env).
+ * Key comes from the ANTHROPIC_API_KEY env var (Vercel project env,
+ * preview-scoped; production gets its own scope when this goes live).
  * Never commit a key.
  */
 
