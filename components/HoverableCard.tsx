@@ -6,10 +6,14 @@ import { ReactNode } from "react";
 
 interface HoverableCardProps {
   children: ReactNode;
-  initial?: object;
-  whileInView?: object;
-  viewport?: object;
-  transition?: object;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  initial?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  whileInView?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  viewport?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  transition?: any;
   delay?: number;
   style?: React.CSSProperties;
 }
