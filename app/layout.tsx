@@ -2,12 +2,7 @@ import "@mantine/core/styles.css";
 import "./globals.scss";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { Analytics } from "@vercel/analytics/react";
-import { Archivo_Black, Space_Grotesk, Space_Mono } from "next/font/google";
 import type { Metadata } from "next";
-
-const display = Archivo_Black({ subsets: ["latin"], weight: "400", variable: "--font-display" });
-const bodyFont = Space_Grotesk({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--font-body" });
-const mono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nolan-hughes.vercel.app"),
@@ -38,9 +33,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${display.variable} ${bodyFont.variable} ${mono.variable}`}>
+    <html lang="en">
       <head>
         <ColorSchemeScript />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
+          rel="stylesheet"
+        />
       </head>
       <body>
         <MantineProvider defaultColorScheme="light">{children}</MantineProvider>

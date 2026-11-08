@@ -7,9 +7,9 @@
 :root{
   --paper:#f4eee1; --paper2:#ece3cf; --ink:#16130c; --ink2:#3d382b;
   --orange:#ff4d00; --blue:#2b3bff; --yellow:#ffc700; --pink:#ff90c2;
-  --fd:var(--font-display),"Archivo Black",sans-serif;
-  --fb:var(--font-body),"Space Grotesk",sans-serif;
-  --fm:var(--font-mono),"Space Mono",monospace;
+  --fd:"Archivo Black","Arial Black",sans-serif;
+  --fb:"Space Grotesk","Segoe UI",sans-serif;
+  --fm:"Space Mono","Courier New",monospace;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;overflow-x:hidden}
