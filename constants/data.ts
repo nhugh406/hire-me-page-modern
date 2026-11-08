@@ -18,7 +18,7 @@ export const HERO = {
   lede: "I'm Nolan Hughes — a Staff-level frontend engineer with 10+ years shipping enterprise web apps. Right now I'm a core engineer on Mojo, Demandbase's agentic AI workspace: the agent writes live dashboards, runs tasks, and collaborates with whole teams in real time — including by voice.",
   proof: [
     "Core engineer · Mojo @ Demandbase",
-    "~290 tickets · 3 codebases · 18 months",
+    "~290 tickets · 10+ codebases · 18 months",
     "Tests in 900+ files",
   ],
 };
@@ -47,7 +47,7 @@ export const TICKER = [
 
 export const STATS = [
   { value: "10+", label: "Years building for the web" },
-  { value: "~290", label: "Tickets shipped · 3 codebases · 18 mo" },
+  { value: "~290", label: "Tickets shipped · 10+ codebases · 18 mo" },
   { value: "900+", label: "Files with tests added or updated" },
   { value: "~80", label: "Merge requests reviewed in 5 weeks" },
   { value: "~30", label: "Architecture docs written / co-written" },
