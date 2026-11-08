@@ -55,8 +55,39 @@ function useClock() {
   return now;
 }
 
+function useHomeClock() {
+  const [parts, setParts] = useState({ time: "", date: "" });
+  useEffect(() => {
+    const tick = () => {
+      const d = new Date();
+      setParts({
+        time: d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }).replace(/\s?[AP]M/i, ""),
+        date: d.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" }),
+      });
+    };
+    tick();
+    const t = setInterval(tick, 20000);
+    return () => clearInterval(t);
+  }, []);
+  return parts;
+}
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 900px)");
+    const apply = () => setIsMobile(mq.matches);
+    apply();
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, []);
+  return isMobile;
+}
+
 export default function Home() {
   const clock = useClock();
+  const homeClock = useHomeClock();
+  const isMobile = useIsMobile();
   const desktopRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState<Record<WinId, boolean>>({
     readme: true,
@@ -70,25 +101,31 @@ export default function Home() {
   const [order, setOrder] = useState<WinId[]>(["readme", "mojo", "monitor"]);
   const [pos, setPos] = useState<Partial<Record<WinId, { x: number; y: number }>>>({});
   const dragRef = useRef<{ id: WinId; startX: number; startY: number; baseX: number; baseY: number } | null>(null);
+  const [mobileActive, setMobileActive] = useState<WinId | null>(null);
+  const [switcherOpen, setSwitcherOpen] = useState(false);
 
   const focus = (id: WinId) => setOrder((o) => [...o.filter((w) => w !== id), id]);
   const openWin = (id: WinId) => {
     setOpen((s) => ({ ...s, [id]: true }));
     focus(id);
-    // On the stacked mobile layout, bring the freshly opened window to the reader.
-    if (typeof window !== "undefined" && window.innerWidth <= 900) {
-      window.setTimeout(() => {
-        document.querySelector(`[data-win="${id}"]`)?.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 80);
+    if (isMobile) {
+      setMobileActive(id);
+      setSwitcherOpen(false);
     }
   };
-  const closeWin = (id: WinId) => setOpen((s) => ({ ...s, [id]: false }));
+  const closeWin = (id: WinId) => {
+    setOpen((s) => ({ ...s, [id]: false }));
+    if (mobileActive === id) setMobileActive(null);
+  };
+  const goHome = () => {
+    setMobileActive(null);
+    setSwitcherOpen(false);
+  };
   const zOf = (id: WinId) => 10 + order.indexOf(id);
 
-  // Dragging lives on the title bar only, via pointer events — the window body
-  // keeps normal touch behavior, so content scrolls instead of dragging.
+  // Desktop dragging lives on the title bar only, via pointer events — the
+  // window body keeps normal behavior, so content scrolls instead of dragging.
   const onTitlePointerDown = (id: WinId) => (e: React.PointerEvent<HTMLDivElement>) => {
-    if (typeof window !== "undefined" && window.innerWidth <= 900) return; // stacked layout: no dragging
     if (e.button !== undefined && e.button !== 0) return;
     if ((e.target as HTMLElement).closest("button")) return; // let the close light click
     focus(id);
@@ -109,20 +146,257 @@ export default function Home() {
     dragRef.current = null;
   };
 
+  const renderBody = (id: WinId) => (
+    <>
+      {id === "readme" && (
+        <div className="os-readme">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={PROFILE_IMAGE} alt="Nolan Hughes" className="os-avatar" />
+          <h1>Hi, I&apos;m Nolan. Go ahead — drag this window around.</h1>
+          <p>
+            That&apos;s basically my job. I build the layer where <strong>people and AI agents work side
+            by side</strong>: canvases an agent can write and publish, apps that open in windows, teams
+            collaborating live — even talking to the agent out loud.
+          </p>
+          <p>
+            For the last 18 months I&apos;ve been a core engineer on <strong>Mojo</strong>, Demandbase&apos;s
+            agentic AI workspace. Before that: founding frontend engineer at a legal-tech startup, and
+            principal engineer running design systems and micro frontends for a 50+ engineer org.
+          </p>
+          <p className="os-readme-sign">
+            I&apos;m looking for a Staff / Principal frontend seat, remote US. Everything on this desktop
+            is the evidence — start with <button className="os-inline-link" onClick={() => openWin("mojo")}>Mojo.app</button>,
+            or check the <button className="os-inline-link" onClick={() => openWin("monitor")}>Activity Monitor</button> for the numbers.
+          </p>
+        </div>
+      )}
+
+      {id === "mojo" && (
+        <div className="os-mojo">
+          <p className="os-mojo-head">
+            <strong>Mojo</strong> — an agentic AI marketing workspace. Not a chatbot in a trench coat:
+            the agent writes real product, in the product, while the team watches.
+          </p>
+          <ul className="os-app-list">
+            <li>
+              <span>▦</span>
+              <div><strong>Canvases — mine, end to end.</strong> The agent writes and publishes interactive dashboards with live data. I built the compile/publish pipeline, the self-repair loops, sharing, version history, and the one-click trip from canvas to Google Slides.</div>
+            </li>
+            <li>
+              <span>◧</span>
+              <div><strong>The Apps layer — the UI/UX pass.</strong> A desktop-style windowing shell inside the product (yes, like this page). I helped improve how it feels: the catalog, how windows open and move, how apps notify — usability and polish across the surface.</div>
+            </li>
+            <li>
+              <span>≋</span>
+              <div><strong>Multiplayer &amp; voice.</strong> Shared chats, AI-coordinated project rooms, presence, typing indicators — and live voice conversations with the agent.</div>
+            </li>
+            <li>
+              <span>⚙</span>
+              <div><strong>Reliability, the unglamorous layer.</strong> Recovering from corrupted tool-call history, keeping deferred tool references alive across turns, escalating to a stronger model for build tasks, fixing long-thread crashes. Tool use that holds up in production.</div>
+            </li>
+          </ul>
+        </div>
+      )}
+
+      {id === "monitor" && (
+        <div className="os-monitor">
+          {BARS.map((b) => (
+            <div className="os-proc" key={b.label}>
+              <div className="os-proc-top">
+                <span className="os-proc-name">{b.label}</span>
+                <span className="os-proc-detail">{b.detail}</span>
+              </div>
+              <div className="os-bar"><span style={{ width: `${b.pct}%` }} /></div>
+            </div>
+          ))}
+          <p className="os-monitor-foot">Uptime: 10+ years. Zero plans to reboot into management — Staff-level IC, on purpose.</p>
+        </div>
+      )}
+
+      {id === "experience" && (
+        <div className="os-log">
+          {EXPERIENCE.map((job) => (
+            <div className="os-log-entry" key={job.company}>
+              <p className="os-log-line">
+                <span className="os-log-date">[{job.period}]</span> <strong>{job.company}</strong> — {job.title} · {job.location}
+              </p>
+              <p className="os-log-sum">{job.summary}</p>
+              {job.achievements.slice(0, 3).map((a) => (
+                <p className="os-log-ach" key={a}>→ {a}</p>
+              ))}
+            </div>
+          ))}
+          <p className="os-log-foot">Full log in <Link href="/resume">Resume.pdf</Link> — it prints nicely, promise.</p>
+        </div>
+      )}
+
+      {id === "projects" && (
+        <div className="os-finder">
+          {PROJECTS.map((p) => (
+            <div className="os-file os-file-app" key={p.name}>
+              <span className="os-file-glyph">🚀</span>
+              <strong>{p.name}</strong>
+              <small>{p.badge} · {p.stack}</small>
+              <p>{p.text}</p>
+            </div>
+          ))}
+          {SELECTED_REPOS.map((name) => (
+            <a className="os-file" key={name} href={`${GITHUB_URL}/${name}`} target="_blank" rel="noreferrer">
+              <span className="os-file-glyph">📁</span>
+              <strong>{name}</strong>
+              <small>GitHub · TypeScript</small>
+              <p>{REPO_BLURBS[name]}</p>
+            </a>
+          ))}
+        </div>
+      )}
+
+      {id === "skills" && (
+        <div className="os-skills">
+          {Object.entries(SKILLS).map(([group, items]) => (
+            <div key={group} className="os-skill-group">
+              <h3>{group}</h3>
+              <div className="os-chips">
+                {items.map((s) => (<span key={s} className="os-chip">{s}</span>))}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {id === "contact" && (
+        <div className="os-vcard">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={PROFILE_IMAGE} alt="Nolan Hughes" className="os-avatar" />
+          <h2>Nolan Hughes</h2>
+          <p>Staff / Principal Frontend Engineer · Parrish, FL · Remote (US)</p>
+          <a className="os-vcard-btn" href={`mailto:${EMAIL}`}>✉ {EMAIL}</a>
+          <div className="os-vcard-rows">
+            <a href={LINKEDIN_URL} target="_blank" rel="noreferrer">LinkedIn — /in/nolanhughes ↗</a>
+            <a href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub — @nhugh406 ↗</a>
+            <Link href="/resume">Résumé — printable / PDF ↗</Link>
+          </div>
+          <p className="os-vcard-note">Fastest reply: email. I read everything, recruiters included.</p>
+        </div>
+      )}
+    </>
+  );
+
+  const menuBar = (
+    <div className="os-menubar">
+      <span className="os-menu-logo"> NolanOS</span>
+      <span className="os-menu-item os-menu-strong">Nolan Hughes</span>
+      <span className="os-menu-item">File</span>
+      <span className="os-menu-item">Edit</span>
+      <span className="os-menu-item">Window</span>
+      <span className="os-menu-item">Help</span>
+      <span className="os-menu-right">
+        <span className="os-open-dot" /> Open to Staff / Principal roles
+        <span className="os-clock">{clock}</span>
+      </span>
+    </div>
+  );
+
+  /* ================= Mobile: a phone OS ================= */
+  if (isMobile) {
+    const activeWin = WINDOWS.find((w) => w.id === mobileActive);
+    const recentOpen = [...order].reverse().filter((id) => open[id]);
+    return (
+      <main className="os os-mobile">
+        {menuBar}
+
+        {mobileActive === null && !switcherOpen && (
+          <div className="os-home">
+            <div className="os-home-clock">
+              <span className="os-home-date">{homeClock.date}</span>
+              <span className="os-home-time">{homeClock.time}</span>
+              <span className="os-home-tag">NolanOS, pocket edition. Every app below is a piece of the portfolio — tap one.</span>
+            </div>
+            <div className="os-appgrid">
+              {WINDOWS.map((w) => (
+                <button key={w.id} className="os-appicon" onClick={() => openWin(w.id)}>
+                  <span className="os-appicon-glyph">{w.icon}</span>
+                  <span className="os-appicon-label">{w.title.split(" — ")[0]}</span>
+                  {open[w.id] && <span className="os-appicon-dot" />}
+                </button>
+              ))}
+              <Link className="os-appicon" href="/resume">
+                <span className="os-appicon-glyph">📕</span>
+                <span className="os-appicon-label">Resume.pdf</span>
+              </Link>
+            </div>
+            <p className="os-home-note">Apps stay open in the background — hit ⧉ in the dock (or inside any app) to multitask between them.</p>
+          </div>
+        )}
+
+        {activeWin && !switcherOpen && (
+          <section className="os-appview" aria-label={activeWin.title}>
+            <div className="os-appbar">
+              <button className="os-appbar-btn" onClick={goHome}>‹ Home</button>
+              <span className="os-appbar-title">{activeWin.icon} {activeWin.title.split(" — ")[0]}</span>
+              <button className="os-appbar-btn" onClick={() => setSwitcherOpen(true)} aria-label="App switcher">⧉</button>
+            </div>
+            <div className="os-body os-appbody">{renderBody(activeWin.id)}</div>
+            <button className="os-homebar" onClick={goHome} aria-label="Go home"><span /></button>
+          </section>
+        )}
+
+        {switcherOpen && (
+          <div className="os-switcher">
+            <div className="os-switcher-head">
+              <h2>Open apps</h2>
+              <button className="os-appbar-btn" onClick={() => setSwitcherOpen(false)}>Done</button>
+            </div>
+            {recentOpen.length === 0 && (
+              <p className="os-switcher-empty">Nothing running. Head home and tap an icon to launch an app.</p>
+            )}
+            <div className="os-switcher-grid">
+              {recentOpen.map((id) => {
+                const w = WINDOWS.find((x) => x.id === id)!;
+                return (
+                  <div className="os-switcher-card" key={id}>
+                    <button className="os-switcher-main" onClick={() => openWin(id)}>
+                      <span className="os-switcher-glyph">{w.icon}</span>
+                      <span className="os-switcher-title">{w.title}</span>
+                      <span className="os-switcher-sub">Tap to jump back in</span>
+                    </button>
+                    <button
+                      className="os-switcher-close"
+                      aria-label={`Close ${w.title}`}
+                      onClick={() => closeWin(id)}
+                    >×</button>
+                  </div>
+                );
+              })}
+            </div>
+            <button className="os-homebar" onClick={goHome} aria-label="Go home"><span /></button>
+          </div>
+        )}
+
+        {mobileActive === null && !switcherOpen && (
+          <nav className="os-dock os-dock-mobile" aria-label="Dock">
+            {(["readme", "mojo", "projects", "contact"] as WinId[]).map((id) => {
+              const w = WINDOWS.find((x) => x.id === id)!;
+              return (
+                <button key={id} className={`os-dock-item ${open[id] ? "os-dock-open" : ""}`} onClick={() => openWin(id)} title={w.title}>
+                  <span>{w.icon}</span>
+                </button>
+              );
+            })}
+            <span className="os-dock-sep" />
+            <button className="os-dock-item" onClick={() => setSwitcherOpen(true)} title="App switcher">
+              <span>⧉</span>
+            </button>
+          </nav>
+        )}
+      </main>
+    );
+  }
+
+  /* ================= Desktop: the windowed OS ================= */
   return (
     <main className="os">
-      <div className="os-menubar">
-        <span className="os-menu-logo"> NolanOS</span>
-        <span className="os-menu-item os-menu-strong">Nolan Hughes</span>
-        <span className="os-menu-item">File</span>
-        <span className="os-menu-item">Edit</span>
-        <span className="os-menu-item">Window</span>
-        <span className="os-menu-item">Help</span>
-        <span className="os-menu-right">
-          <span className="os-open-dot" /> Open to Staff / Principal roles
-          <span className="os-clock">{clock}</span>
-        </span>
-      </div>
+      {menuBar}
 
       <div className="os-desktop" ref={desktopRef}>
         <p className="os-wallpaper-title">
@@ -168,139 +442,7 @@ export default function Home() {
               </span>
               <span className="os-title">{w.icon} {w.title}</span>
             </div>
-            <div className="os-body">
-              {w.id === "readme" && (
-                <div className="os-readme">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={PROFILE_IMAGE} alt="Nolan Hughes" className="os-avatar" />
-                  <h1>Hi, I&apos;m Nolan. Go ahead — drag this window around.</h1>
-                  <p>
-                    That&apos;s basically my job. I build the layer where <strong>people and AI agents work side
-                    by side</strong>: canvases an agent can write and publish, apps that open in windows, teams
-                    collaborating live — even talking to the agent out loud.
-                  </p>
-                  <p>
-                    For the last 18 months I&apos;ve been a core engineer on <strong>Mojo</strong>, Demandbase&apos;s
-                    agentic AI workspace. Before that: founding frontend engineer at a legal-tech startup, and
-                    principal engineer running design systems and micro frontends for a 50+ engineer org.
-                  </p>
-                  <p className="os-readme-sign">
-                    I&apos;m looking for a Staff / Principal frontend seat, remote US. Everything on this desktop
-                    is the evidence — start with <button className="os-inline-link" onClick={() => openWin("mojo")}>Mojo.app</button>,
-                    or check the <button className="os-inline-link" onClick={() => openWin("monitor")}>Activity Monitor</button> for the numbers.
-                  </p>
-                </div>
-              )}
-
-              {w.id === "mojo" && (
-                <div className="os-mojo">
-                  <p className="os-mojo-head">
-                    <strong>Mojo</strong> — an agentic AI marketing workspace. Not a chatbot in a trench coat:
-                    the agent writes real product, in the product, while the team watches.
-                  </p>
-                  <ul className="os-app-list">
-                    <li>
-                      <span>▦</span>
-                      <div><strong>Canvases — mine, end to end.</strong> The agent writes and publishes interactive dashboards with live data. I built the compile/publish pipeline, the self-repair loops, sharing, version history, and the one-click trip from canvas to Google Slides.</div>
-                    </li>
-                    <li>
-                      <span>◧</span>
-                      <div><strong>The Apps layer — the UI/UX pass.</strong> A desktop-style windowing shell inside the product (yes, like this page). I helped improve how it feels: the catalog, how windows open and move, how apps notify — usability and polish across the surface.</div>
-                    </li>
-                    <li>
-                      <span>≋</span>
-                      <div><strong>Multiplayer &amp; voice.</strong> Shared chats, AI-coordinated project rooms, presence, typing indicators — and live voice conversations with the agent.</div>
-                    </li>
-                    <li>
-                      <span>⚙</span>
-                      <div><strong>Reliability, the unglamorous layer.</strong> Recovering from corrupted tool-call history, keeping deferred tool references alive across turns, escalating to a stronger model for build tasks, fixing long-thread crashes. Tool use that holds up in production.</div>
-                    </li>
-                  </ul>
-                </div>
-              )}
-
-              {w.id === "monitor" && (
-                <div className="os-monitor">
-                  {BARS.map((b) => (
-                    <div className="os-proc" key={b.label}>
-                      <div className="os-proc-top">
-                        <span className="os-proc-name">{b.label}</span>
-                        <span className="os-proc-detail">{b.detail}</span>
-                      </div>
-                      <div className="os-bar"><span style={{ width: `${b.pct}%` }} /></div>
-                    </div>
-                  ))}
-                  <p className="os-monitor-foot">Uptime: 10+ years. Zero plans to reboot into management — Staff-level IC, on purpose.</p>
-                </div>
-              )}
-
-              {w.id === "experience" && (
-                <div className="os-log">
-                  {EXPERIENCE.map((job) => (
-                    <div className="os-log-entry" key={job.company}>
-                      <p className="os-log-line">
-                        <span className="os-log-date">[{job.period}]</span> <strong>{job.company}</strong> — {job.title} · {job.location}
-                      </p>
-                      <p className="os-log-sum">{job.summary}</p>
-                      {job.achievements.slice(0, 3).map((a) => (
-                        <p className="os-log-ach" key={a}>→ {a}</p>
-                      ))}
-                    </div>
-                  ))}
-                  <p className="os-log-foot">Full log in <Link href="/resume">Resume.pdf</Link> — it prints nicely, promise.</p>
-                </div>
-              )}
-
-              {w.id === "projects" && (
-                <div className="os-finder">
-                  {PROJECTS.map((p) => (
-                    <div className="os-file os-file-app" key={p.name}>
-                      <span className="os-file-glyph">🚀</span>
-                      <strong>{p.name}</strong>
-                      <small>{p.badge} · {p.stack}</small>
-                      <p>{p.text}</p>
-                    </div>
-                  ))}
-                  {SELECTED_REPOS.map((name) => (
-                    <a className="os-file" key={name} href={`${GITHUB_URL}/${name}`} target="_blank" rel="noreferrer">
-                      <span className="os-file-glyph">📁</span>
-                      <strong>{name}</strong>
-                      <small>GitHub · TypeScript</small>
-                      <p>{REPO_BLURBS[name]}</p>
-                    </a>
-                  ))}
-                </div>
-              )}
-
-              {w.id === "skills" && (
-                <div className="os-skills">
-                  {Object.entries(SKILLS).map(([group, items]) => (
-                    <div key={group} className="os-skill-group">
-                      <h3>{group}</h3>
-                      <div className="os-chips">
-                        {items.map((s) => (<span key={s} className="os-chip">{s}</span>))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {w.id === "contact" && (
-                <div className="os-vcard">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={PROFILE_IMAGE} alt="Nolan Hughes" className="os-avatar" />
-                  <h2>Nolan Hughes</h2>
-                  <p>Staff / Principal Frontend Engineer · Parrish, FL · Remote (US)</p>
-                  <a className="os-vcard-btn" href={`mailto:${EMAIL}`}>✉ {EMAIL}</a>
-                  <div className="os-vcard-rows">
-                    <a href={LINKEDIN_URL} target="_blank" rel="noreferrer">LinkedIn — /in/nolanhughes ↗</a>
-                    <a href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub — @nhugh406 ↗</a>
-                    <Link href="/resume">Résumé — printable / PDF ↗</Link>
-                  </div>
-                  <p className="os-vcard-note">Fastest reply: email. I read everything, recruiters included.</p>
-                </div>
-              )}
-            </div>
+            <div className="os-body">{renderBody(w.id)}</div>
           </div>
         ))}
 

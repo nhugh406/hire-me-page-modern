@@ -181,32 +181,95 @@ a.os-file:hover{border-color:var(--os-accent)}
 .os-dock-open::after{content:"";position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:#fff}
 .os-dock-sep{width:1px;height:38px;background:rgba(255,255,255,.25)}
 
-/* ---------- Mobile: the OS becomes an app stack ----------
-   No dragging, no absolute positioning: the wallpaper title and a
-   launcher panel sit on top, windows stack as full-width cards and
-   the page scrolls like any mobile site. Tapping an icon opens its
-   window and scrolls it into view. */
+/* ---------- Small screens: content grids go single-column ---------- */
 @media (max-width:900px){
-  .os-desktop{display:flex;flex-direction:column;padding:14px 12px 110px;gap:14px}
-  .os-wallpaper-title{position:static;max-width:none;font-size:2rem}
-  .os-wallpaper-title span{font-size:.94rem}
-  .os-icons{
-    position:static;flex-direction:row;flex-wrap:wrap;order:2;gap:6px;
-    background:rgba(20,12,40,.45);border:1px solid rgba(255,255,255,.16);
-    border-radius:18px;padding:10px 6px;backdrop-filter:blur(10px);
-  }
-  .os-icon{width:72px}
-  .os-window{
-    position:relative!important;left:auto;top:auto;width:auto;max-height:none;order:3;
-    transform:none!important;scroll-margin-top:52px;
-  }
-  .os-titlebar{cursor:default;touch-action:auto}
-  .os-body{overflow:visible;padding:16px}
   .os-finder{grid-template-columns:1fr}
   .os-monitor{grid-template-columns:1fr}
   .os-dock{max-width:calc(100vw - 16px);overflow-x:auto}
   .os-dock-item:hover{transform:none}
 }
+
+/* ---------- Mobile OS (rendered only ≤900px via matchMedia) ----------
+   Home screen with a clock widget and app grid; apps take over the
+   full screen under the menu bar; a switcher handles multitasking. */
+.os-mobile{overflow:hidden}
+.os-home{
+  flex:1 1 auto;overflow-y:auto;padding:26px 20px 132px;display:flex;flex-direction:column;gap:26px;
+}
+.os-home-clock{display:flex;flex-direction:column;color:#fff;text-shadow:0 4px 24px rgba(0,0,0,.4)}
+.os-home-date{font-size:1.02rem;font-weight:600;color:rgba(255,255,255,.85)}
+.os-home-time{font-size:4.6rem;font-weight:800;line-height:1.02;letter-spacing:-.02em}
+.os-home-tag{font-size:.95rem;line-height:1.5;color:rgba(255,255,255,.82);max-width:34ch;margin-top:10px}
+.os-appgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px 8px}
+.os-appicon{
+  background:none;border:none;cursor:pointer;text-decoration:none;position:relative;
+  display:flex;flex-direction:column;align-items:center;gap:6px;padding:2px 0;
+}
+.os-appicon-glyph{
+  width:58px;height:58px;border-radius:15px;display:grid;place-items:center;font-size:1.8rem;
+  background:linear-gradient(160deg,rgba(255,255,255,.92),rgba(255,255,255,.72));
+  box-shadow:0 8px 18px rgba(5,2,16,.35);border:1px solid rgba(255,255,255,.5);
+}
+.os-appicon-label{
+  color:#fff;font-size:.68rem;font-weight:600;line-height:1.2;text-align:center;
+  text-shadow:0 1px 4px rgba(0,0,0,.65);max-width:76px;word-break:break-word;
+}
+.os-appicon-dot{
+  position:absolute;top:-3px;right:calc(50% - 34px);width:10px;height:10px;border-radius:50%;
+  background:#34d399;border:2px solid rgba(20,12,40,.85);box-shadow:0 0 6px #34d399;
+}
+.os-home-note{color:rgba(255,255,255,.66);font-size:.84rem;line-height:1.55;margin:0}
+.os-dock-mobile{justify-content:center}
+
+.os-appview{
+  position:fixed;inset:38px 0 0 0;z-index:150;background:var(--os-paper);
+  display:flex;flex-direction:column;animation:os-app-in .18s ease-out;
+}
+@keyframes os-app-in{from{transform:translateY(14px);opacity:.4}to{transform:none;opacity:1}}
+.os-appbar{
+  flex:0 0 50px;display:flex;align-items:center;gap:8px;padding:0 10px;
+  background:linear-gradient(#f4f1fb,#e8e2f5);border-bottom:1px solid var(--os-line);
+}
+.os-appbar-btn{
+  background:none;border:none;cursor:pointer;font:inherit;font-weight:700;font-size:.95rem;
+  color:var(--os-accent);padding:8px 10px;border-radius:10px;min-width:44px;
+}
+.os-appbar-title{
+  flex:1;text-align:center;font-size:.9rem;font-weight:700;color:#3d3654;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.os-appbody{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px}
+.os-homebar{
+  flex:0 0 26px;background:none;border:none;cursor:pointer;display:grid;place-items:center;width:100%;
+}
+.os-homebar span{display:block;width:134px;height:5px;border-radius:99px;background:rgba(34,29,51,.4)}
+
+.os-switcher{
+  position:fixed;inset:38px 0 0 0;z-index:180;display:flex;flex-direction:column;
+  background:rgba(24,13,46,.72);backdrop-filter:blur(18px);padding:18px 16px 10px;
+  animation:os-app-in .18s ease-out;
+}
+.os-switcher-head{display:flex;align-items:center;justify-content:space-between;color:#fff}
+.os-switcher-head h2{margin:0;font-size:1.25rem}
+.os-switcher-head .os-appbar-btn{color:#c4b5fd}
+.os-switcher-empty{color:rgba(255,255,255,.75);line-height:1.55}
+.os-switcher-grid{display:flex;flex-direction:column;gap:12px;overflow-y:auto;padding:6px 0}
+.os-switcher-card{
+  position:relative;background:var(--os-paper);border-radius:16px;overflow:hidden;
+  box-shadow:0 14px 30px rgba(5,2,16,.45);
+}
+.os-switcher-main{
+  width:100%;background:none;border:none;cursor:pointer;text-align:left;font:inherit;
+  display:flex;flex-direction:column;gap:2px;padding:16px 44px 16px 16px;color:var(--os-ink);
+}
+.os-switcher-glyph{font-size:1.7rem}
+.os-switcher-title{font-weight:700;font-size:.98rem}
+.os-switcher-sub{color:var(--os-muted);font-size:.82rem}
+.os-switcher-close{
+  position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;border:none;cursor:pointer;
+  background:#ff5f57;color:#fff;font-size:1rem;font-weight:700;line-height:1;
+}
+.os-switcher .os-homebar span{background:rgba(255,255,255,.55)}
 
 /* ---------- Résumé page ---------- */
 .resume-page{background:#f6f7fb;color:#131722;min-height:100vh;padding:110px 16px 60px}
