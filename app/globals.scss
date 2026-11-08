@@ -21,17 +21,21 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;overflow-x:hidden}
-body{
+/* html body (0,0,2) deliberately outranks Mantine's plain body rule (0,0,1),
+   which otherwise pins background-color/color to its light scheme. */
+html body{
   margin:0;background:var(--paper);color:var(--ink);font-family:var(--fb);
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
   background-image:radial-gradient(var(--dot) 1px, transparent 1.4px);
   background-size:22px 22px;
 }
+:root{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
 a{color:inherit}
 img{max-width:100%}
 ::selection{background:var(--orange);color:#fff}
 
-.ed{max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,44px)}
+.ed{max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,44px);color:var(--ink)}
 
 /* ---------- Top bar ---------- */
 .ed-top{
