@@ -1,258 +1,199 @@
-"use client";
-
-import { motion } from "framer-motion";
-import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
-import { useGitHubRepos } from "@/hooks/useGitHubRepos";
+import Link from "next/link";
 import {
   EMAIL,
-  LINKEDIN_URL,
-  GITHUB_URL,
-  TICKER,
-  STATS,
-  SPOTLIGHT,
-  PILLARS,
   EXPERIENCE,
+  GITHUB_URL,
+  HERO,
+  LINKEDIN_URL,
+  LOCATION,
+  PILLARS,
+  PROFILE_IMAGE,
   PROJECTS,
-  SKILLS,
   REPO_BLURBS,
+  SELECTED_REPOS,
+  SKILLS,
+  SPOTLIGHT,
+  STATS,
+  TICKER,
 } from "@/constants/data";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const reveal: any = {
-  initial: { opacity: 0, y: 26 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.6 },
-};
-
-function SectionHead({
-  kicker,
-  title,
-  sub,
-}: {
-  kicker: string;
-  title: string;
-  sub?: string;
-}) {
+function Stamp() {
   return (
-    <motion.div {...reveal}>
-      <p className="kicker">{kicker}</p>
-      <h2>{title}</h2>
-      {sub ? <p className="section-sub">{sub}</p> : null}
-    </motion.div>
+    <div className="stamp" aria-hidden="true">
+      <svg viewBox="0 0 120 120">
+        <defs>
+          <path id="stamp-circle" d="M 60,60 m -44,0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0" />
+        </defs>
+        <text>
+          <textPath href="#stamp-circle">OPEN TO WORK • STAFF / PRINCIPAL • REMOTE US •</textPath>
+        </text>
+      </svg>
+      <span className="stamp-star">✦</span>
+    </div>
   );
 }
 
-export default function Page() {
-  const { repos, loading } = useGitHubRepos();
-  const tickerItems = [...TICKER, ...TICKER];
-
+export default function Home() {
   return (
-    <>
-      <Nav />
-      <Hero />
+    <main className="ed">
+      <header className="ed-top">
+        <span className="ed-top-brand">NH® — PORTFOLIO, VOL. 2026</span>
+        <nav className="ed-top-nav">
+          <a href="#work">Work</a>
+          <a href="#experience">Track record</a>
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+        </nav>
+        <a className="ed-top-cta" href="#contact">Hire me →</a>
+      </header>
 
-      <div className="ticker" aria-hidden="true">
-        <div className="ticker-track">
-          {tickerItems.map((t, i) => (
-            <span key={`${t}-${i}`}>{t}</span>
+      <div className="ed-marquee" aria-hidden="true">
+        <div className="ed-marquee-track">
+          {[...TICKER, ...TICKER].map((t, i) => (
+            <span key={i}>{t} <b>✦</b></span>
           ))}
         </div>
       </div>
 
-      <main className="wrap">
-        {/* Impact */}
-        <section className="section" style={{ paddingTop: 64 }}>
-          <SectionHead
-            kicker="Proof, not adjectives"
-            title="The numbers behind the headline."
-            sub="Recent work at Demandbase, measured the way hiring managers actually ask about it — scope shipped, quality enforced, and systems other engineers build on."
-          />
-          <div className="stats">
-            {STATS.map((s, i) => (
-              <motion.div key={s.label} {...reveal} transition={{ duration: 0.6, delay: i * 0.06 }}>
-                <div className="stat">
-                  <strong>{s.value}</strong>
-                  <span>{s.label}</span>
-                </div>
-              </motion.div>
-            ))}
+      <section className="ed-hero">
+        <div className="ed-hero-main">
+          <p className="ed-kicker">★ {HERO.eyebrow} — {LOCATION}</p>
+          <h1 className="ed-name">NOLAN<br />HUGHES<span className="ed-dot">.</span></h1>
+          <p className="ed-headline">
+            I build interfaces where <mark>people &amp; AI agents</mark> work together.
+          </p>
+          <p className="ed-lede">{HERO.lede}</p>
+          <div className="ed-cta-row">
+            <a className="ed-btn ed-btn-solid" href={`mailto:${EMAIL}`}>Email me</a>
+            <Link className="ed-btn ed-btn-outline" href="/resume">Résumé</Link>
+            <a className="ed-btn ed-btn-outline" href={LINKEDIN_URL} target="_blank" rel="noreferrer">LinkedIn ↗</a>
+            <a className="ed-btn ed-btn-outline" href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub ↗</a>
           </div>
-        </section>
-
-        {/* Spotlight: Mojo */}
-        <section className="section" id="spotlight">
-          <SectionHead kicker={SPOTLIGHT.kicker} title={SPOTLIGHT.title} sub={SPOTLIGHT.description} />
-          <motion.div {...reveal}>
-            <div className="spotlight">
-              <div className="grid2" style={{ marginTop: 0 }}>
-                {SPOTLIGHT.features.map((f) => (
-                  <div key={f.title} className="feature">
-                    <h4>{f.title}</h4>
-                    <p>{f.text}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </section>
-
-        {/* Pillars */}
-        <section className="section">
-          <SectionHead
-            kicker="What I do best"
-            title="Three things teams hire me for."
-          />
-          <div className="grid3">
-            {PILLARS.map((p, i) => (
-              <motion.div key={p.title} {...reveal} transition={{ duration: 0.6, delay: i * 0.08 }}>
-                <article className="card">
-                  <span className="tag">{p.tag}</span>
-                  <h3>{p.title}</h3>
-                  <p>{p.text}</p>
-                </article>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* Experience */}
-        <section className="section" id="experience">
-          <SectionHead
-            kicker="Experience"
-            title="10+ years. Founding engineer to Staff-level IC."
-            sub="Every role below added a layer: leading teams, founding a frontend practice, owning design systems and platforms — and now building agentic product surfaces end to end."
-          />
-          <div className="timeline">
-            {EXPERIENCE.map((job, i) => (
-              <motion.div key={job.company} {...reveal} transition={{ duration: 0.6, delay: Math.min(i * 0.05, 0.15) }}>
-                <article className="job">
-                  <div className="job-head">
-                    <div>
-                      <h3>{job.title}</h3>
-                      <div className="company">{job.company}</div>
-                    </div>
-                    <div className="meta">
-                      {job.period}
-                      <br />
-                      {job.location}
-                    </div>
-                  </div>
-                  <p className="summary">{job.summary}</p>
-                  <ul>
-                    {job.achievements.map((a) => (
-                      <li key={a}>{a}</li>
-                    ))}
-                  </ul>
-                  <div className="badges">
-                    {job.technologies.map((t) => (
-                      <span key={t} className="badge">{t}</span>
-                    ))}
-                  </div>
-                </article>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* Projects */}
-        <section className="section" id="projects">
-          <SectionHead
-            kicker="Featured projects"
-            title="Built because I wanted the thing to exist."
-            sub="Side projects in the same lanes as my day job: LLM pipelines with structured output, and tooling that makes large codebases easier to test."
-          />
-          <div className="grid2">
-            {PROJECTS.map((p, i) => (
-              <motion.div key={p.name} {...reveal} transition={{ duration: 0.6, delay: i * 0.08 }}>
-                <article className="card">
-                  <span className="tag">{p.badge}</span>
-                  <h3>{p.name}</h3>
-                  <p>{p.text}</p>
-                  <div className="badges">
-                    {p.stack.split(" · ").map((s) => (
-                      <span key={s} className="badge hot">{s}</span>
-                    ))}
-                  </div>
-                </article>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="grid2">
-            {loading
-              ? [0, 1, 2, 3].map((n) => (
-                  <div key={n} className="card"><span className="tag">GitHub</span><h3>Loading…</h3><p>Fetching repositories.</p></div>
-                ))
-              : repos.map((r, i) => (
-                  <motion.div key={r.url} {...reveal} transition={{ duration: 0.6, delay: i * 0.06 }}>
-                    <article className="card">
-                      <span className="tag">GitHub · {r.language ?? "Code"}</span>
-                      <h3>{r.name}</h3>
-                      <p>{REPO_BLURBS[r.name] || r.description || "Open-source work on GitHub."}</p>
-                      <div className="repo-meta">
-                        {r.stars > 0 ? <span className="badge">★ {r.stars} stars</span> : null}
-                        {r.forks > 0 ? <span className="badge">⑂ {r.forks} forks</span> : null}
-                        {r.stars === 0 && r.forks === 0 ? <span className="badge">Public repo</span> : null}
-                      </div>
-                      <a className="repo-link" href={r.url} target="_blank" rel="noreferrer">View on GitHub →</a>
-                    </article>
-                  </motion.div>
-                ))}
-          </div>
-          {!loading && repos.length === 0 ? (
-            <p className="section-sub" style={{ marginTop: 20 }}>
-              More on <a href={GITHUB_URL} target="_blank" rel="noreferrer" style={{ color: "var(--cyan)" }}>GitHub →</a>
-            </p>
-          ) : null}
-        </section>
-
-        {/* Skills */}
-        <section className="section" id="skills">
-          <SectionHead kicker="Core skills" title="A stack built around AI product surfaces." />
-          <div className="grid2">
-            {Object.entries(SKILLS).map(([group, skills], i) => (
-              <motion.div key={group} {...reveal} transition={{ duration: 0.6, delay: i * 0.06 }}>
-                <div className="card skill-group">
-                  <h3>{group}</h3>
-                  <div className="badges" style={{ marginTop: 0 }}>
-                    {skills.map((s) => (
-                      <span key={s} className="badge">{s}</span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* Contact */}
-        <div id="contact">
-          <motion.div {...reveal}>
-            <section className="footer-cta">
-              <p className="kicker">Next step</p>
-              <h2>Let&apos;s build what&apos;s next — <span className="grad">together.</span></h2>
-              <p>
-                I&apos;m exploring Staff / Principal frontend roles where AI product surfaces,
-                platform architecture, and real craft matter. The fastest way to reach me is email —
-                I read everything myself.
-              </p>
-              <div className="hero-ctas" style={{ justifyContent: "center" }}>
-                <a className="btn btn-primary" href={`mailto:${EMAIL}`}>{EMAIL}</a>
-                <a className="btn btn-ghost" href={LINKEDIN_URL} target="_blank" rel="noreferrer">LinkedIn</a>
-                <a className="btn btn-ghost" href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a>
-                <a className="btn btn-ghost" href="/resume">Résumé</a>
-              </div>
-            </section>
-          </motion.div>
+          <ul className="ed-proof">
+            {HERO.proof.map((p) => (<li key={p}>{p}</li>))}
+          </ul>
         </div>
+        <div className="ed-hero-photo">
+          <div className="ed-photo-frame">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={PROFILE_IMAGE} alt="Nolan Hughes" />
+            <Stamp />
+          </div>
+          <p className="ed-photo-cap">FIG. 01 — THE ENGINEER IN QUESTION. PARRISH, FL.</p>
+        </div>
+      </section>
 
-        <footer className="site">
-          <span>© 2026 Nolan Hughes · Parrish, FL · Remote (US)</span>
-          <span>Built with Next.js · Deployed on Vercel</span>
-        </footer>
-      </main>
-    </>
+      <section className="ed-stats" aria-label="By the numbers">
+        {STATS.map((s, i) => (
+          <div className="ed-stat" key={s.label}>
+            <span className="ed-stat-idx">{String(i + 1).padStart(2, "0")}</span>
+            <span className="ed-stat-value">{s.value}</span>
+            <span className="ed-stat-label">{s.label}</span>
+          </div>
+        ))}
+      </section>
+
+      <section className="ed-spotlight" id="work">
+        <p className="ed-section-tag ed-section-tag-dark">■ {SPOTLIGHT.kicker}</p>
+        <h2 className="ed-spotlight-title">{SPOTLIGHT.title}</h2>
+        <p className="ed-spotlight-desc">{SPOTLIGHT.description}</p>
+        <div className="ed-features">
+          {SPOTLIGHT.features.map((f, i) => (
+            <article className="ed-feature" key={f.title}>
+              <span className="ed-feature-num">{String(i + 1).padStart(2, "0")}</span>
+              <h3>{f.title}</h3>
+              <p>{f.text}</p>
+            </article>
+          ))}
+        </div>
+        <div className="ed-pillars">
+          {PILLARS.map((p) => (
+            <article className="ed-pillar" key={p.title}>
+              <p className="ed-pillar-tag">{p.tag}</p>
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="ed-exp" id="experience">
+        <p className="ed-section-tag">■ Track record</p>
+        <h2 className="ed-h2">WHERE I&apos;VE<br />DONE IT.</h2>
+        {EXPERIENCE.map((job) => (
+          <article className="ed-job" key={job.company}>
+            <div className="ed-job-meta">
+              <p className="ed-job-period">{job.period}</p>
+              <p className="ed-job-loc">{job.location}</p>
+              <p className="ed-job-tech">{job.technologies.join(" / ")}</p>
+            </div>
+            <div className="ed-job-body">
+              <h3>{job.title} <span className="ed-job-company">@ {job.company}</span></h3>
+              <p className="ed-job-summary">{job.summary}</p>
+              <ul>
+                {job.achievements.map((a) => (<li key={a}>{a}</li>))}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </section>
+
+      <section className="ed-projects" id="projects">
+        <p className="ed-section-tag">■ Side projects &amp; open source</p>
+        <h2 className="ed-h2">BUILT AFTER<br />HOURS.</h2>
+        <div className="ed-proj-grid">
+          {PROJECTS.map((p) => (
+            <article className="ed-proj ed-proj-featured" key={p.name}>
+              <p className="ed-proj-badge">{p.badge}</p>
+              <h3>{p.name}</h3>
+              <p>{p.text}</p>
+              <p className="ed-proj-stack">{p.stack}</p>
+            </article>
+          ))}
+          {SELECTED_REPOS.map((name) => (
+            <a
+              className="ed-proj"
+              key={name}
+              href={`${GITHUB_URL}/${name}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <p className="ed-proj-badge">GitHub · TypeScript · Public repo</p>
+              <h3>{name} ↗</h3>
+              <p>{REPO_BLURBS[name]}</p>
+              <p className="ed-proj-stack">View on GitHub →</p>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="ed-skills" id="skills">
+        <p className="ed-section-tag">■ The toolkit</p>
+        {Object.entries(SKILLS).map(([group, items]) => (
+          <div className="ed-skill-row" key={group}>
+            <h3>{group}</h3>
+            <p>{items.join("  /  ")}</p>
+          </div>
+        ))}
+      </section>
+
+      <section className="ed-contact" id="contact">
+        <p className="ed-contact-tag">LAST PAGE. BEST PAGE.</p>
+        <h2 className="ed-contact-big">HIRE<br />NOLAN.</h2>
+        <p className="ed-contact-sub">
+          Staff / Principal frontend roles, remote US. Fastest reply by email — I read everything.
+        </p>
+        <div className="ed-cta-row">
+          <a className="ed-btn ed-btn-ink" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+          <a className="ed-btn ed-btn-outline-light" href={LINKEDIN_URL} target="_blank" rel="noreferrer">LinkedIn ↗</a>
+          <Link className="ed-btn ed-btn-outline-light" href="/resume">Résumé</Link>
+        </div>
+      </section>
+
+      <footer className="ed-footer">
+        <span>© 2026 Nolan Hughes — Parrish, FL</span>
+        <span>Set in Archivo Black &amp; Space Mono. No glass was blurred in this design.</span>
+      </footer>
+    </main>
   );
 }

@@ -2,7 +2,12 @@ import "@mantine/core/styles.css";
 import "./globals.scss";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { Analytics } from "@vercel/analytics/react";
+import { Archivo_Black, Space_Grotesk, Space_Mono } from "next/font/google";
 import type { Metadata } from "next";
+
+const display = Archivo_Black({ subsets: ["latin"], weight: "400", variable: "--font-display" });
+const bodyFont = Space_Grotesk({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--font-body" });
+const mono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nolan-hughes.vercel.app"),
@@ -33,12 +38,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${display.variable} ${bodyFont.variable} ${mono.variable}`}>
       <head>
         <ColorSchemeScript />
       </head>
       <body>
-        <MantineProvider defaultColorScheme="dark">{children}</MantineProvider>
+        <MantineProvider defaultColorScheme="light">{children}</MantineProvider>
         <Analytics />
       </body>
     </html>
