@@ -1,258 +1,161 @@
-"use client";
+import Link from "next/link";
+import { EMAIL, GITHUB_URL, LINKEDIN_URL, PROFILE_IMAGE } from "@/constants/data";
 
-import { motion } from "framer-motion";
-import Nav from "@/components/Nav";
-import Hero from "@/components/Hero";
-import { useGitHubRepos } from "@/hooks/useGitHubRepos";
-import {
-  EMAIL,
-  LINKEDIN_URL,
-  GITHUB_URL,
-  TICKER,
-  STATS,
-  SPOTLIGHT,
-  PILLARS,
-  EXPERIENCE,
-  PROJECTS,
-  SKILLS,
-  REPO_BLURBS,
-} from "@/constants/data";
+/**
+ * CONCEPT: The Thread — the whole portfolio is one text conversation.
+ * A hiring manager asks; Nolan answers. Every section is a message.
+ */
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const reveal: any = {
-  initial: { opacity: 0, y: 26 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-60px" },
-  transition: { duration: 0.6 },
-};
-
-function SectionHead({
-  kicker,
-  title,
-  sub,
-}: {
-  kicker: string;
-  title: string;
-  sub?: string;
-}) {
+function In({ children, label }: { children: React.ReactNode; label?: boolean }) {
   return (
-    <motion.div {...reveal}>
-      <p className="kicker">{kicker}</p>
-      <h2>{title}</h2>
-      {sub ? <p className="section-sub">{sub}</p> : null}
-    </motion.div>
+    <div className="th-row th-row-in">
+      <span className="th-avatar th-avatar-hm">HM</span>
+      <div className="th-stack">
+        {label ? <span className="th-sender">Hiring Manager</span> : null}
+        <div className="th-bubble th-bubble-in">{children}</div>
+      </div>
+    </div>
   );
 }
 
-export default function Page() {
-  const { repos, loading } = useGitHubRepos();
-  const tickerItems = [...TICKER, ...TICKER];
-
+function Out({ children, react }: { children: React.ReactNode; react?: string }) {
   return (
-    <>
-      <Nav />
-      <Hero />
+    <div className="th-row th-row-out">
+      <div className="th-stack th-stack-out">
+        <div className="th-bubble th-bubble-out">{children}</div>
+        {react ? <span className="th-react">{react}</span> : null}
+      </div>
+    </div>
+  );
+}
 
-      <div className="ticker" aria-hidden="true">
-        <div className="ticker-track">
-          {tickerItems.map((t, i) => (
-            <span key={`${t}-${i}`}>{t}</span>
-          ))}
+function Card({ title, sub, children, href }: { title: string; sub: string; children?: React.ReactNode; href?: string }) {
+  const inner = (
+    <>
+      <span className="th-card-kicker">{sub}</span>
+      <strong className="th-card-title">{title}</strong>
+      {children}
+    </>
+  );
+  return href ? (
+    <a className="th-card" href={href} target="_blank" rel="noreferrer">{inner}</a>
+  ) : (
+    <div className="th-card">{inner}</div>
+  );
+}
+
+export default function Home() {
+  return (
+    <main className="th">
+      <header className="th-header">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={PROFILE_IMAGE} alt="Nolan Hughes" className="th-header-avatar" />
+        <div className="th-header-meta">
+          <strong>Nolan Hughes</strong>
+          <span><i className="th-dot" /> Staff / Principal Frontend Engineer · usually replies fast</span>
         </div>
+        <div className="th-header-actions">
+          <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" title="LinkedIn">in</a>
+          <a href={GITHUB_URL} target="_blank" rel="noreferrer" title="GitHub">gh</a>
+          <Link href="/resume" title="Résumé">cv</Link>
+        </div>
+      </header>
+
+      <div className="th-thread">
+        <p className="th-divider">Today · The whole portfolio, as one conversation</p>
+
+        <In label>Hi! We&apos;re hiring a Staff Frontend Engineer and your name came up. Mind if I ask a few things?</In>
+        <Out>Please do. Short version first: I&apos;m Nolan — 10+ years of frontend, currently a core engineer on <strong>Mojo</strong> at Demandbase, where people and AI agents work in the same workspace. I build the interfaces they share.</Out>
+
+        <In>What does that actually look like day to day?</In>
+        <Out>
+          The agent writes and publishes <strong>live, interactive dashboards</strong> — called Canvases. That pipeline is mine end to end: self-repair when generation breaks, recovery when a data source changes shape, sharing, version history…
+        </Out>
+        <Out>
+          <Card title="Canvas → Google Slides" sub="SHIPPED · MOJO">
+            <span className="th-card-text">One click turns an agent-built canvas into a deck. Recruiters love this one; sales teams love it more.</span>
+          </Card>
+        </Out>
+        <Out>There&apos;s also a whole Apps layer — apps that open in windows inside the product. I led the UI/UX improvement pass on it: the catalog, how windows open and move, how apps notify. Plus real-time collaboration (shared chats, presence, project rooms) and live voice conversations with the agent.</Out>
+        <Out>
+          <span className="th-voice">
+            <span className="th-voice-play">▶</span>
+            <span className="th-voice-bars">{[10, 18, 8, 22, 14, 26, 12, 20, 9, 16, 24, 11, 19, 7, 15, 21, 10, 17].map((h, i) => (<i key={i} style={{ height: h }} />))}</span>
+            <span className="th-voice-time">0:42</span>
+          </span>
+          <span className="th-voice-cap">Yes — actual voice. I helped build the live-voice layer, so the demo is the job.</span>
+        </Out>
+
+        <In>Okay, that&apos;s the fun stuff. What about the unglamorous parts?</In>
+        <Out react="❤️">Fair question — that&apos;s where I live. LLM reliability in production: recovering from corrupted tool-call history, keeping tool references alive across long conversations, escalating to a stronger model when a build task needs it, fixing the crashes nobody else wanted. Agentic products survive on this layer.</Out>
+
+        <In>Got receipts?</In>
+        <Out>
+          <span className="th-stats">
+            <span><strong>~290</strong> tickets shipped in 18 months, across <strong>10+ codebases</strong></span>
+            <span><strong>900+</strong> files with tests added or updated</span>
+            <span><strong>~80</strong> merge requests reviewed in a single 5-week span</span>
+            <span><strong>~30</strong> architecture docs written or co-written</span>
+            <span><strong>~90</strong> engineers shipping in my Nx monorepo</span>
+          </span>
+        </Out>
+
+        <In>And before Demandbase?</In>
+        <Out>
+          <span className="th-roles">
+            <span><strong>Planet Depos</strong> — founding frontend engineer. First hire, set the standards, built Vue 3 systems for legal workflows. Cut rework 80%.</span>
+            <span><strong>Newfold Digital</strong> — Principal Engineer. React design system adopted across business units; micro frontends via Module Federation.</span>
+            <span><strong>Benefit Allocation Systems</strong> — analyst → director. Grew into leading a team of 12 on enterprise benefits software.</span>
+          </span>
+        </Out>
+
+        <In>Do you build anything for fun?</In>
+        <Out>
+          <Card title="AI Finance Forecaster" sub="SIDE PROJECT · NEXT.JS + CLAUDE API" href={GITHUB_URL}>
+            <span className="th-card-text">Feeds bank exports to Claude, predicts future balances. Structured-output prompt pipelines, not vibes.</span>
+          </Card>
+        </Out>
+        <Out>
+          <Card title="Open source on GitHub" sub="@NHUGH406" href={GITHUB_URL}>
+            <span className="th-card-text">notesmith (notes app, Supabase realtime) · HelixSuite · gralena · realtime-chat — all public, all TypeScript.</span>
+          </Card>
+        </Out>
+
+        <In>Stack, quickly?</In>
+        <Out>
+          <span className="th-stack-list">
+            React · TypeScript · Next.js · Vue 3<br />
+            Micro frontends · Nx · Module Federation · Design systems<br />
+            LLM integration · MCP tooling · Generative UI<br />
+            Playwright · Jest · CI/CD · WebSockets · Temporal · Python (enough to be dangerous)
+          </span>
+        </Out>
+
+        <In>Last one — why you, over the other Staff candidates?</In>
+        <Out>Because I&apos;ve already shipped the thing most teams are about to attempt: real product where an AI agent does work next to humans — with the reliability scars to prove it. And I stay an IC on purpose. You&apos;re hiring depth, not a future meeting.</Out>
+
+        <In>When can you start the conversation?</In>
+        <Out>
+          <span className="th-contact">
+            <strong>Right now works.</strong>
+            <span>Email is fastest — I read everything, recruiters included.</span>
+            <span className="th-contact-btns">
+              <a href={`mailto:${EMAIL}`}>✉ {EMAIL}</a>
+              <a href={LINKEDIN_URL} target="_blank" rel="noreferrer">LinkedIn ↗</a>
+              <Link href="/resume">Résumé ↗</Link>
+            </span>
+          </span>
+        </Out>
+        <p className="th-receipt">Delivered · Read</p>
       </div>
 
-      <main className="wrap">
-        {/* Impact */}
-        <section className="section" style={{ paddingTop: 64 }}>
-          <SectionHead
-            kicker="Proof, not adjectives"
-            title="The numbers behind the headline."
-            sub="Recent work at Demandbase, measured the way hiring managers actually ask about it — scope shipped, quality enforced, and systems other engineers build on."
-          />
-          <div className="stats">
-            {STATS.map((s, i) => (
-              <motion.div key={s.label} {...reveal} transition={{ duration: 0.6, delay: i * 0.06 }}>
-                <div className="stat">
-                  <strong>{s.value}</strong>
-                  <span>{s.label}</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
+      <div className="th-inputbar" aria-hidden="true">
+        <span className="th-input-plus">+</span>
+        <a className="th-input-field" href={`mailto:${EMAIL}`}>Say the word — I&apos;ll send the résumé</a>
+        <a className="th-input-send" href={`mailto:${EMAIL}`}>↑</a>
+      </div>
 
-        {/* Spotlight: Mojo */}
-        <section className="section" id="spotlight">
-          <SectionHead kicker={SPOTLIGHT.kicker} title={SPOTLIGHT.title} sub={SPOTLIGHT.description} />
-          <motion.div {...reveal}>
-            <div className="spotlight">
-              <div className="grid2" style={{ marginTop: 0 }}>
-                {SPOTLIGHT.features.map((f) => (
-                  <div key={f.title} className="feature">
-                    <h4>{f.title}</h4>
-                    <p>{f.text}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </section>
-
-        {/* Pillars */}
-        <section className="section">
-          <SectionHead
-            kicker="What I do best"
-            title="Three things teams hire me for."
-          />
-          <div className="grid3">
-            {PILLARS.map((p, i) => (
-              <motion.div key={p.title} {...reveal} transition={{ duration: 0.6, delay: i * 0.08 }}>
-                <article className="card">
-                  <span className="tag">{p.tag}</span>
-                  <h3>{p.title}</h3>
-                  <p>{p.text}</p>
-                </article>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* Experience */}
-        <section className="section" id="experience">
-          <SectionHead
-            kicker="Experience"
-            title="10+ years. Founding engineer to Staff-level IC."
-            sub="Every role below added a layer: leading teams, founding a frontend practice, owning design systems and platforms — and now building agentic product surfaces end to end."
-          />
-          <div className="timeline">
-            {EXPERIENCE.map((job, i) => (
-              <motion.div key={job.company} {...reveal} transition={{ duration: 0.6, delay: Math.min(i * 0.05, 0.15) }}>
-                <article className="job">
-                  <div className="job-head">
-                    <div>
-                      <h3>{job.title}</h3>
-                      <div className="company">{job.company}</div>
-                    </div>
-                    <div className="meta">
-                      {job.period}
-                      <br />
-                      {job.location}
-                    </div>
-                  </div>
-                  <p className="summary">{job.summary}</p>
-                  <ul>
-                    {job.achievements.map((a) => (
-                      <li key={a}>{a}</li>
-                    ))}
-                  </ul>
-                  <div className="badges">
-                    {job.technologies.map((t) => (
-                      <span key={t} className="badge">{t}</span>
-                    ))}
-                  </div>
-                </article>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* Projects */}
-        <section className="section" id="projects">
-          <SectionHead
-            kicker="Featured projects"
-            title="Built because I wanted the thing to exist."
-            sub="Side projects in the same lanes as my day job: LLM pipelines with structured output, and tooling that makes large codebases easier to test."
-          />
-          <div className="grid2">
-            {PROJECTS.map((p, i) => (
-              <motion.div key={p.name} {...reveal} transition={{ duration: 0.6, delay: i * 0.08 }}>
-                <article className="card">
-                  <span className="tag">{p.badge}</span>
-                  <h3>{p.name}</h3>
-                  <p>{p.text}</p>
-                  <div className="badges">
-                    {p.stack.split(" · ").map((s) => (
-                      <span key={s} className="badge hot">{s}</span>
-                    ))}
-                  </div>
-                </article>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="grid2">
-            {loading
-              ? [0, 1, 2, 3].map((n) => (
-                  <div key={n} className="card"><span className="tag">GitHub</span><h3>Loading…</h3><p>Fetching repositories.</p></div>
-                ))
-              : repos.map((r, i) => (
-                  <motion.div key={r.url} {...reveal} transition={{ duration: 0.6, delay: i * 0.06 }}>
-                    <article className="card">
-                      <span className="tag">GitHub · {r.language ?? "Code"}</span>
-                      <h3>{r.name}</h3>
-                      <p>{REPO_BLURBS[r.name] || r.description || "Open-source work on GitHub."}</p>
-                      <div className="repo-meta">
-                        {r.stars > 0 ? <span className="badge">★ {r.stars} stars</span> : null}
-                        {r.forks > 0 ? <span className="badge">⑂ {r.forks} forks</span> : null}
-                        {r.stars === 0 && r.forks === 0 ? <span className="badge">Public repo</span> : null}
-                      </div>
-                      <a className="repo-link" href={r.url} target="_blank" rel="noreferrer">View on GitHub →</a>
-                    </article>
-                  </motion.div>
-                ))}
-          </div>
-          {!loading && repos.length === 0 ? (
-            <p className="section-sub" style={{ marginTop: 20 }}>
-              More on <a href={GITHUB_URL} target="_blank" rel="noreferrer" style={{ color: "var(--cyan)" }}>GitHub →</a>
-            </p>
-          ) : null}
-        </section>
-
-        {/* Skills */}
-        <section className="section" id="skills">
-          <SectionHead kicker="Core skills" title="A stack built around AI product surfaces." />
-          <div className="grid2">
-            {Object.entries(SKILLS).map(([group, skills], i) => (
-              <motion.div key={group} {...reveal} transition={{ duration: 0.6, delay: i * 0.06 }}>
-                <div className="card skill-group">
-                  <h3>{group}</h3>
-                  <div className="badges" style={{ marginTop: 0 }}>
-                    {skills.map((s) => (
-                      <span key={s} className="badge">{s}</span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
-        {/* Contact */}
-        <div id="contact">
-          <motion.div {...reveal}>
-            <section className="footer-cta">
-              <p className="kicker">Next step</p>
-              <h2>Let&apos;s build what&apos;s next — <span className="grad">together.</span></h2>
-              <p>
-                I&apos;m exploring Staff / Principal frontend roles where AI product surfaces,
-                platform architecture, and real craft matter. The fastest way to reach me is email —
-                I read everything myself.
-              </p>
-              <div className="hero-ctas" style={{ justifyContent: "center" }}>
-                <a className="btn btn-primary" href={`mailto:${EMAIL}`}>{EMAIL}</a>
-                <a className="btn btn-ghost" href={LINKEDIN_URL} target="_blank" rel="noreferrer">LinkedIn</a>
-                <a className="btn btn-ghost" href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a>
-                <a className="btn btn-ghost" href="/resume">Résumé</a>
-              </div>
-            </section>
-          </motion.div>
-        </div>
-
-        <footer className="site">
-          <span>© 2026 Nolan Hughes · Parrish, FL · Remote (US)</span>
-          <span>Built with Next.js · Deployed on Vercel</span>
-        </footer>
-      </main>
-    </>
+      <p className="th-foot">Portfolio of Nolan Hughes · Parrish, FL · Remote (US) · This page is a concept — the live site may differ</p>
+    </main>
   );
 }
