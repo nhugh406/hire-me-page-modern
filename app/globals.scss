@@ -4,7 +4,7 @@
    Dusk-gradient wallpaper; windows are warm paper, not glass.
    ============================================================ */
 :root{
-  --os-ink:#221d33; --os-muted:#5d5675; --os-line:#d9d2e8;
+  --os-ink:#221d33; --os-muted:#4c4662; --os-line:#d9d2e8;
   --os-paper:#fdfcff; --os-accent:#7c3aed; --os-accent2:#f97316;
 }
 *{box-sizing:border-box}
@@ -79,9 +79,9 @@ a{color:var(--os-accent)}
   display:flex;flex-direction:column;max-height:min(78vh,760px);
 }
 .os-window-active{box-shadow:0 24px 60px rgba(8,4,24,.5),0 4px 14px rgba(8,4,24,.3)}
-.win-readme{left:3.5%;top:190px;width:560px}
-.win-mojo{left:38%;top:64px;width:600px}
-.win-monitor{left:5%;top:560px;width:480px}
+.win-readme{left:3.5%;top:196px;width:540px}
+.win-mojo{left:41%;top:54px;width:600px}
+.win-monitor{left:41%;top:592px;width:600px}
 .win-exp{left:30%;top:120px;width:640px}
 .win-projects{left:24%;top:90px;width:660px}
 .win-skills{left:44%;top:150px;width:520px}
@@ -99,7 +99,7 @@ a{color:var(--os-accent)}
 .os-light-max{background:#28c840}
 .os-title{font-size:.82rem;font-weight:600;color:#3d3654;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .os-body{overflow-y:auto;padding:20px 22px;font-size:.94rem;line-height:1.6}
-.os-body h1{font-size:1.42rem;line-height:1.22;margin:0 0 10px;letter-spacing:-.01em}
+.os-body h1{font-size:1.42rem;line-height:1.22;margin:0 0 10px;letter-spacing:-.01em;color:var(--os-ink)}
 .os-body h2{margin:0 0 6px}
 .os-body p{margin:0 0 10px;color:#35304a}
 .os-avatar{width:76px;height:76px;border-radius:50%;object-fit:cover;float:right;margin:0 0 10px 14px;border:3px solid #fff;box-shadow:0 4px 14px rgba(30,16,70,.3)}
@@ -115,8 +115,10 @@ a{color:var(--os-accent)}
 .os-app-list strong{color:var(--os-ink)}
 
 /* Activity monitor */
-.os-proc{margin-bottom:14px}
-.os-proc-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8rem}
+.os-monitor{display:grid;grid-template-columns:1fr 1fr;gap:2px 24px}
+.os-monitor-foot{grid-column:1/-1}
+.os-proc{margin-bottom:12px}
+.os-proc-top{display:flex;flex-direction:column;gap:1px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8rem}
 .os-proc-name{font-weight:700}
 .os-proc-detail{color:var(--os-muted)}
 .os-bar{height:10px;background:#ece7f7;border-radius:99px;margin-top:6px;overflow:hidden}
