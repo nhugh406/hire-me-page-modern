@@ -50,7 +50,7 @@ a{color:var(--os-accent)}
 }
 .os-wallpaper-title span{display:block;font-size:1rem;font-weight:500;line-height:1.55;margin-top:14px;color:rgba(255,255,255,.82);letter-spacing:0}
 .os-hint{
-  position:absolute;left:36px;bottom:104px;margin:0;color:rgba(255,255,255,.66);
+  position:absolute;left:41%;bottom:118px;margin:0;color:rgba(255,255,255,.66);
   font-size:.84rem;pointer-events:none;
 }
 @media (max-width:1100px){.os-hint{display:none}}
@@ -81,8 +81,15 @@ a{color:var(--os-accent)}
 .os-window-active{box-shadow:0 24px 60px rgba(8,4,24,.5),0 4px 14px rgba(8,4,24,.3)}
 .win-readme{left:3.5%;top:196px;width:540px}
 .win-mojo{left:41%;top:40px;width:600px}
-.win-monitor{left:41%;top:612px;width:600px}
+.win-monitor{left:3.5%;top:644px;width:540px}
 .win-monitor .os-body{padding:12px 18px}
+@media (max-height:920px){
+  .win-readme{top:170px}
+  .win-mojo{top:24px}
+  .win-monitor{top:600px}
+  .win-monitor .os-body{padding:8px 14px}
+  .win-monitor .os-proc{margin-bottom:5px}
+}
 .win-exp{left:30%;top:120px;width:640px}
 .win-projects{left:24%;top:90px;width:660px}
 .win-skills{left:44%;top:150px;width:520px}

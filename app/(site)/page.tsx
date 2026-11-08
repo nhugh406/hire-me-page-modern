@@ -27,11 +27,11 @@ const WINDOWS: { id: WinId; title: string; icon: string; cls: string }[] = [
 ];
 
 const BARS = [
-  { label: "tickets_shipped", detail: "~290 across 10+ codebases · 18 mo", pct: 92 },
-  { label: "tests_touched", detail: "900+ files added or updated", pct: 97 },
-  { label: "merge_requests_reviewed", detail: "~80 in one 5-week span", pct: 78 },
-  { label: "architecture_docs", detail: "~30 written / co-written", pct: 64 },
-  { label: "monorepo_contributors", detail: "~90 engineers shipping together", pct: 84 },
+  { label: "tickets_shipped", detail: "~290 · 10+ codebases · 18 mo", pct: 92 },
+  { label: "tests_touched", detail: "900+ files with tests", pct: 97 },
+  { label: "merge_requests_reviewed", detail: "~80 in 5 weeks", pct: 78 },
+  { label: "architecture_docs", detail: "~30 written", pct: 64 },
+  { label: "monorepo_contributors", detail: "~90 engineers", pct: 84 },
   { label: "years_on_the_web", detail: "10+ and counting", pct: 70 },
 ];
 
@@ -209,7 +209,7 @@ export default function Home() {
               <div className="os-bar"><span style={{ width: `${b.pct}%` }} /></div>
             </div>
           ))}
-          <p className="os-monitor-foot">Uptime: 10+ years. Zero plans to reboot into management — Staff-level IC, on purpose.</p>
+          <p className="os-monitor-foot">Uptime: 10+ years. No reboot into management.</p>
         </div>
       )}
 
