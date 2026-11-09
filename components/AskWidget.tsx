@@ -60,9 +60,8 @@ export default function AskWidget() {
     bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, busy, draft, followups, open]);
 
-  useEffect(() => {
-    if (open) inputRef.current?.focus();
-  }, [open ]);
+  // No auto-focus on open (Nolan's call): the quick options are the primary
+  // path, and auto-focusing pops the mobile keyboard and shifts the panel.
 
   const pushMsg = (msg: Msg) => setMessages((m) => [...m, msg]);
 
@@ -154,12 +153,11 @@ export default function AskWidget() {
     );
   }
 
-  const askedQuestions = new Set(
-    messages.filter((m) => m.role === "user").map((m) => m.content.trim().toLowerCase())
-  );
-  const chipsToShow: string[] =
-    followups ??
-    STARTER_CHIPS.filter((c) => !askedQuestions.has(c.trim().toLowerCase()));
+  // Starter chips appear ONLY before the first exchange. After that, the row
+  // shows just the agent's dynamic follow-ups (nothing while a reply is in
+  // flight or when a reply returns none) — the starters live in the ✦ menu.
+  const hasAsked = messages.some((m) => m.role === "user");
+  const chipsToShow: string[] = !hasAsked ? STARTER_CHIPS : followups ?? [];
 
   return (
     <section className="ask-panel" aria-label="Ask Nolan's agent">

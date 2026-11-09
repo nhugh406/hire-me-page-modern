@@ -276,7 +276,10 @@ a.ed-proj:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink)}
 .ask-send:disabled{opacity:.5;cursor:wait}
 @media (max-width:560px){
   .ask-fab{right:12px;bottom:12px}
-  .ask-panel{right:0;bottom:0;width:100vw;height:100dvh;border:none;box-shadow:none}
+  /* Anchor to all four edges instead of height:100dvh — a dvh-sized fixed
+     panel floats and leaves a gap on iOS when the keyboard/chrome moves. */
+  .ask-panel{top:0;left:0;right:0;bottom:0;width:auto;height:auto;border:none;box-shadow:none}
+  .ask-inputrow{padding-bottom:calc(12px + env(safe-area-inset-bottom))}
 }
 
 /* ---------- Résumé page ---------- */
