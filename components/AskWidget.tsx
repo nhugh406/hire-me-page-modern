@@ -76,16 +76,25 @@ export default function AskWidget() {
       }
 
       // Streaming plain-text reply: render tokens as they arrive.
+      // The thinking animation gets a minimum on-screen beat (~0.9s) so it
+      // actually registers before the first token lands.
       const reader = r.body.getReader();
       const decoder = new TextDecoder();
+      const startedAt = Date.now();
       let acc = "";
-      setDraft("");
+      let revealed = false;
       for (;;) {
         const { done, value } = await reader.read();
         if (done) break;
         acc += decoder.decode(value, { stream: true });
+        if (!revealed) {
+          const wait = 900 - (Date.now() - startedAt);
+          if (wait > 0) await new Promise((res) => setTimeout(res, wait));
+          revealed = true;
+        }
         setDraft(acc);
       }
+      if (!revealed) setDraft(acc);
       acc = acc.trim();
       setDraft(null);
       pushMsg({
