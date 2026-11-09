@@ -245,7 +245,24 @@ a.ed-proj:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink)}
   background:var(--paper);color:var(--ink);border:2px solid var(--ink);padding:6px 10px;box-shadow:3px 3px 0 var(--ink);
 }
 .ask-chip:hover{background:var(--yellow);color:#16130c}
-.ask-inputrow{flex:0 0 auto;display:flex;gap:8px;padding:12px 14px;border-top:3px solid var(--ink)}
+.ask-inputrow{flex:0 0 auto;display:flex;gap:8px;padding:12px 14px;border-top:3px solid var(--ink);position:relative}
+.ask-menu-btn{
+  flex:0 0 auto;width:44px;font-size:1.05rem;cursor:pointer;
+  background:var(--paper);color:var(--ink);border:2.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+}
+.ask-menu-btn:hover{background:var(--yellow);color:#16130c}
+.ask-menu{
+  position:absolute;left:12px;right:12px;bottom:calc(100% + 8px);z-index:6;
+  background:var(--paper);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
+  padding:10px;display:flex;flex-direction:column;gap:6px;
+}
+.ask-menu-title{font-family:var(--fm);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin:0 0 2px}
+.ask-menu-item{
+  font-family:var(--fm);font-size:.82rem;font-weight:700;text-align:left;cursor:pointer;
+  background:var(--card);color:var(--ink);border:2px solid var(--ink);padding:9px 11px;box-shadow:3px 3px 0 var(--ink);
+}
+.ask-menu-item:hover{background:var(--yellow);color:#16130c}
+.ask-menu-item:disabled{opacity:.5;cursor:wait}
 .ask-input{
   flex:1;font:inherit;font-size:.95rem;padding:11px 12px;border:2.5px solid var(--ink);
   background:var(--card);color:var(--ink);min-width:0;
