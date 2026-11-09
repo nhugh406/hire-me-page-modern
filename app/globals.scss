@@ -264,7 +264,8 @@ a.ed-proj:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink)}
 .ask-menu-item:hover{background:var(--yellow);color:#16130c}
 .ask-menu-item:disabled{opacity:.5;cursor:wait}
 .ask-input{
-  flex:1;font:inherit;font-size:.95rem;padding:11px 12px;border:2.5px solid var(--ink);
+  /* 16px exactly: anything smaller makes iOS Safari auto-zoom on focus. */
+  flex:1;font:inherit;font-size:16px;padding:11px 12px;border:2.5px solid var(--ink);
   background:var(--card);color:var(--ink);min-width:0;
 }
 .ask-input:focus{outline:3px solid var(--orange);outline-offset:1px}
