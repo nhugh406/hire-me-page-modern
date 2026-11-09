@@ -39,7 +39,7 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){try{var t=null;try{t=sessionStorage.getItem('nh-theme');}catch(e){}if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.dataset.theme=t;}catch(e){}})();",
+              "(function(){try{var mq=window.matchMedia('(prefers-color-scheme: dark)');var apply=function(){document.documentElement.dataset.theme=mq.matches?'dark':'light';};apply();if(mq.addEventListener){mq.addEventListener('change',apply);}else if(mq.addListener){mq.addListener(apply);}}catch(e){}})();",
           }}
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
