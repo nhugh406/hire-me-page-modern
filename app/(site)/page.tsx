@@ -1,4 +1,6 @@
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
+import AskWidget from "@/components/AskWidget";
 import {
   EMAIL,
   EXPERIENCE,
@@ -28,7 +30,10 @@ export default function Home() {
           <a href="#projects">Projects</a>
           <a href="#skills">Skills</a>
         </nav>
-        <a className="ed-top-cta" href="#contact">Hire me →</a>
+        <span className="ed-top-actions">
+          <ThemeToggle />
+          <a className="ed-top-cta" href="#contact">Hire me →</a>
+        </span>
       </header>
 
       <div className="ed-marquee" aria-hidden="true">
@@ -177,6 +182,8 @@ export default function Home() {
         <span>© 2026 Nolan Hughes — Parrish, FL</span>
         <span>Set in Archivo Black &amp; Space Mono. No glass was blurred in this design.</span>
       </footer>
+
+      <AskWidget />
     </main>
   );
 }
