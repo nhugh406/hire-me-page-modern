@@ -110,8 +110,9 @@ export async function POST(req: NextRequest) {
 
   const system = SYSTEM + (await githubContext());
 
+  let upstream: Response;
   try {
-    const r = await fetch("https://api.anthropic.com/v1/messages", {
+    upstream = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "x-api-key": key,
@@ -122,21 +123,65 @@ export async function POST(req: NextRequest) {
         model: "claude-haiku-4-5",
         max_tokens: 600,
         temperature: 0.3,
+        stream: true,
         system,
         messages,
       }),
     });
-    if (!r.ok) {
-      return NextResponse.json({ error: "upstream", status: r.status }, { status: 502 });
-    }
-    const data = await r.json();
-    const reply = (data?.content || [])
-      .filter((b: any) => b?.type === "text")
-      .map((b: any) => b.text)
-      .join("\n")
-      .trim();
-    return NextResponse.json({ reply: reply || "I don't have that in his record — try me on Mojo, his numbers, or how to hire him." });
   } catch {
     return NextResponse.json({ error: "upstream" }, { status: 502 });
   }
+  if (!upstream.ok || !upstream.body) {
+    return NextResponse.json({ error: "upstream", status: upstream.status }, { status: 502 });
+  }
+
+  // Pipe Anthropic's SSE stream through as plain text deltas so the
+  // widget can render the reply as it is generated.
+  const decoder = new TextDecoder();
+  const encoder = new TextEncoder();
+  const stream = new ReadableStream<Uint8Array>({
+    async start(controller) {
+      const reader = upstream.body!.getReader();
+      let buffer = "";
+      try {
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || "";
+          for (const line of lines) {
+            if (!line.startsWith("data:")) continue;
+            const json = line.slice(5).trim();
+            if (!json || json === "[DONE]") continue;
+            try {
+              const ev = JSON.parse(json);
+              if (
+                ev?.type === "content_block_delta" &&
+                ev.delta?.type === "text_delta" &&
+                typeof ev.delta.text === "string" &&
+                ev.delta.text
+              ) {
+                controller.enqueue(encoder.encode(ev.delta.text));
+              }
+            } catch {
+              /* partial SSE line — skip */
+            }
+          }
+        }
+      } catch {
+        /* upstream cut off — the client keeps whatever arrived */
+      } finally {
+        controller.close();
+      }
+    },
+  });
+
+  return new Response(stream, {
+    headers: {
+      "content-type": "text/plain; charset=utf-8",
+      "cache-control": "no-store",
+      "x-ask-stream": "1",
+    },
+  });
 }
