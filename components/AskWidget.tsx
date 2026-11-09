@@ -16,14 +16,14 @@ const STARTER_CHIPS = [
 const GREETING: Msg = {
   role: "assistant",
   content:
-    "I'm Nolan's agent. Ask me anything about his work — Mojo, his numbers, his GitHub, his track record — or how to hire him.",
+    "I'm Nolan's agent. Ask me anything about his work: Mojo, his numbers, his GitHub, his track record, or how to hire him.",
 };
 
 const MARKER = "[[FOLLOWUPS]]";
 
 /** The starter questions live ONLY in the ✦ menu after the first exchange.
  *  The model still suggests them (or close paraphrases) as follow-ups, which
- *  reads exactly like the old starter pills lingering — so filter them out. */
+ *  reads exactly like the old starter pills lingering, so filter them out. */
 function isStarterTopic(q: string): boolean {
   const t = q.toLowerCase().replace(/[^a-z0-9 ]/g, " ");
   if (t.includes("hire")) return true;
@@ -104,7 +104,7 @@ export default function AskWidget() {
             role: "assistant",
             error: true,
             content:
-              "The agent isn't switched on yet — but Nolan is. Email him at nhugh406@gmail.com and he'll answer personally.",
+              "The agent isn't switched on yet, but Nolan is. Email him at nhugh406@gmail.com and he'll answer personally.",
           });
         } else if (typeof data?.reply === "string" && data.reply) {
           pushMsg({ role: "assistant", content: data.reply });
@@ -112,7 +112,7 @@ export default function AskWidget() {
           pushMsg({
             role: "assistant",
             error: true,
-            content: "Something hiccuped on my end. Email Nolan at nhugh406@gmail.com — fastest route anyway.",
+            content: "Something hiccuped on my end. Email Nolan at nhugh406@gmail.com: fastest route anyway.",
           });
         }
         return;
@@ -142,7 +142,7 @@ export default function AskWidget() {
       setDraft(null);
       pushMsg({
         role: "assistant",
-        content: answer || "I don't have that in his record — try me on Mojo, his numbers, or how to hire him.",
+        content: answer || "I don't have that in his record. Try me on Mojo, his numbers, or how to hire him.",
       });
       const fresh = fu.filter((q) => !isStarterTopic(q));
       if (fresh.length) setFollowups(fresh);
@@ -151,7 +151,7 @@ export default function AskWidget() {
       pushMsg({
         role: "assistant",
         error: true,
-        content: "Couldn't reach the agent just now. Email Nolan at nhugh406@gmail.com — fastest route anyway.",
+        content: "Couldn't reach the agent just now. Email Nolan at nhugh406@gmail.com: fastest route anyway.",
       });
     } finally {
       setBusy(false);
@@ -168,7 +168,7 @@ export default function AskWidget() {
 
   // Starter chips appear ONLY before the first exchange. After that, the row
   // shows just the agent's dynamic follow-ups (nothing while a reply is in
-  // flight or when a reply returns none) — the starters live in the ✦ menu.
+  // flight or when a reply returns none). The starters live in the ✦ menu.
   const hasAsked = messages.some((m) => m.role === "user");
   const chipsToShow: string[] = !hasAsked ? STARTER_CHIPS : followups ?? [];
 

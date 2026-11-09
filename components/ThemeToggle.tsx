@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
  *
  * The theme FOLLOWS THE DEVICE by default: the layout's inline script sets
  * <html data-theme> from prefers-color-scheme before paint, and this
- * component keeps listening — if the device theme changes and the visitor
+ * component keeps listening, if the device theme changes and the visitor
  * hasn't manually overridden during this session, the page follows live.
  * A manual toggle is a per-session override (sessionStorage "nh-theme");
  * the next visit goes back to following the device.
@@ -41,7 +41,7 @@ export default function ThemeToggle() {
     try {
       sessionStorage.setItem("nh-theme", next);
     } catch {
-      /* private mode — override just won't persist for the session */
+      /* private mode, override just won't persist for the session */
     }
     setTheme(next);
   };

@@ -15,7 +15,7 @@ export const HERO = {
   titleA: "I build interfaces where",
   titleB: "people & AI agents",
   titleC: "work together.",
-  lede: "I'm Nolan Hughes — a Staff-level frontend engineer with 10+ years shipping enterprise web apps. Right now I'm a core engineer on Mojo, Demandbase's agentic AI workspace: the agent writes live dashboards, runs tasks, and collaborates with whole teams in real time — including by voice.",
+  lede: "I'm Nolan Hughes, a Staff-level frontend engineer with 10+ years shipping enterprise web apps. Right now I'm a core engineer on Mojo, Demandbase's agentic AI workspace: the agent writes live dashboards, runs tasks, and collaborates with whole teams in real time, including by voice.",
   proof: [
     "Core engineer · Mojo @ Demandbase",
     "~290 tickets · 10+ codebases · 18 months",
@@ -56,21 +56,21 @@ export const STATS = [
 
 export const SPOTLIGHT = {
   kicker: "Current spotlight",
-  title: "Mojo — an agentic AI workspace, not a chatbot bolted on.",
+  title: "Mojo: an agentic AI workspace, not a chatbot bolted on.",
   description:
-    "At Demandbase I went from leading a flagship sales feature to GA, to building core parts of a public agentic AI marketing workspace — React/TypeScript up front, Python agent & API services behind it, Temporal orchestration underneath.",
+    "At Demandbase I went from leading a flagship sales feature to GA, to building core parts of a public agentic AI marketing workspace: React/TypeScript up front, Python agent & API services behind it, Temporal orchestration underneath.",
   features: [
     {
       title: "Canvases, owned end-to-end",
-      text: "The agent writes and publishes interactive React dashboards with live data. I built the compile/publish pipeline — self-repair loops, timeout & 5xx handling, and repair when a data source's schema drifts — plus sharing, version history, a template gallery, and canvas → Google Slides.",
+      text: "The agent writes and publishes interactive React dashboards with live data. I built the compile/publish pipeline: self-repair loops, timeout & 5xx handling, and repair when a data source's schema drifts, plus sharing, version history, a template gallery, and canvas → Google Slides.",
     },
     {
-      title: "The Apps layer — UI/UX",
-      text: "I helped improve the UI/UX and overall experience of the platform's Apps layer — the in-product catalog, desktop-style windowing shell, and how apps open, move, and notify — tightening usability and polish across the surface.",
+      title: "The Apps layer: UI/UX",
+      text: "I helped improve the UI/UX and overall experience of the platform's Apps layer: the in-product catalog, desktop-style windowing shell, and how apps open, move, and notify, tightening usability and polish across the surface.",
     },
     {
       title: "Real-time collaboration & voice",
-      text: "Shared chats, AI-coordinated project rooms, presence and typing indicators — and live voice conversations with the agent. Multiplayer isn't a demo feature here; it's how teams actually work in the product.",
+      text: "Shared chats, AI-coordinated project rooms, presence and typing indicators, and live voice conversations with the agent. Multiplayer isn't a demo feature here; it's how teams actually work in the product.",
     },
     {
       title: "LLM reliability in production",
@@ -83,7 +83,7 @@ export const PILLARS = [
   {
     title: "Generative UI",
     tag: "Agentic product surfaces",
-    text: "Systems that turn LLM output into safe, interactive product — agent-written canvases, structured-output renderers for tables, cards and confirmation actions, and embeddable AI chat other apps import instead of rebuilding.",
+    text: "Systems that turn LLM output into safe, interactive product: agent-written canvases, structured-output renderers for tables, cards and confirmation actions, and embeddable AI chat other apps import instead of rebuilding.",
   },
   {
     title: "Platforms & micro frontends",
@@ -100,17 +100,17 @@ export const PILLARS = [
 export const EXPERIENCE = [
   {
     company: "Demandbase",
-    title: "Senior Software Engineer — Staff-Level IC",
+    title: "Senior Software Engineer, Staff-Level IC",
     period: "Mar 2025 – Present",
     location: "Remote",
     summary:
       "Core engineer on Mojo, an agentic AI marketing workspace. ~170 tickets in 4 months across frontend, agent, and API layers.",
     achievements: [
       "Owned Canvases end to end: agent-written, live-data React dashboards with a compile/publish pipeline, self-repair, sharing, version history, and export to Google Slides",
-      "Helped improve the UI/UX and overall experience of the platform's Apps layer — app catalog, windowing shell, and in-product app flows",
+      "Helped improve the UI/UX and overall experience of the platform's Apps layer: app catalog, windowing shell, and in-product app flows",
       "Built real-time collaboration (shared chats, AI-coordinated rooms, presence) and live voice conversations with the agent",
       "Hardened LLM behavior in production: corrupted tool-call recovery, model escalation, and long-thread crash fixes",
-      "Re-architected the sales AI experience as a micro frontend in an Nx monorepo (~90 contributors) — embeddable AI chat + Canvas Mode other apps import",
+      "Re-architected the sales AI experience as a micro frontend in an Nx monorepo (~90 contributors): embeddable AI chat + Canvas Mode other apps import",
       "Lead frontend engineer for Sales Playbooks, from build to general availability (Dec 2025), with Playwright suites as merge gates",
     ],
     technologies: [
@@ -127,7 +127,7 @@ export const EXPERIENCE = [
   },
   {
     company: "Planet Depos",
-    title: "Senior Software Engineer — Founding Frontend Engineer",
+    title: "Senior Software Engineer, Founding Frontend Engineer",
     period: "Jan 2024 – Feb 2025",
     location: "Remote",
     summary:
@@ -174,7 +174,7 @@ export const PROJECTS = [
   {
     name: "AI-Powered Personal Finance Forecaster",
     stack: "Next.js · TypeScript · Claude API · Supabase",
-    text: "Ingests bank CSV exports, uses Claude to categorize spending patterns, and predicts account balances across future time horizons — engineered prompt pipelines with structured JSON output.",
+    text: "Ingests bank CSV exports, uses Claude to categorize spending patterns, and predicts account balances across future time horizons: engineered prompt pipelines with structured JSON output.",
     badge: "AI · Full-stack",
   },
   {
@@ -231,13 +231,13 @@ export const SKILLS: Record<string, string[]> = {
 
 export const REPO_BLURBS: Record<string, string> = {
   notesmith:
-    "Full-stack notes app — Next.js, Supabase, Mantine. Auth, real-time updates, search, and a polished UX.",
+    "Full-stack notes app: Next.js, Supabase, Mantine. Auth, real-time updates, search, and a polished UX.",
   HelixSuite:
     "Enterprise-grade application suite demonstrating advanced architecture patterns and production-ready implementation.",
   gralena:
     "Modern web app showcasing cutting-edge frontend tech, responsive design, and intuitive UX patterns.",
   "realtime-chat":
-    "Minimal, fast real-time chat — WebSocket / Supabase realtime patterns with smooth UI interactions.",
+    "Minimal, fast real-time chat: WebSocket / Supabase realtime patterns with smooth UI interactions.",
 };
 
 // Back-compat for older imports

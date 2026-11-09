@@ -1,4 +1,4 @@
-// Nolan's studio headshot — the original photo file he provided on
+// Nolan's studio headshot: the original photo file he provided on
 // 2026-11-08 (1168x1159 JPEG, white background, full rectangular frame).
 // Stored as base64 text so the asset ships with the codebase.
 // This supersedes the earlier screenshot-extracted circular LinkedIn crop.

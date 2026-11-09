@@ -4,7 +4,7 @@ import { EMAIL, LINKEDIN_URL, GITHUB_URL } from "@/constants/data";
 export default function Nav() {
   return (
     <header className="nav">
-      <a href="#top" className="nav-brand" aria-label="Nolan Hughes — home">
+      <a href="#top" className="nav-brand" aria-label="Nolan Hughes, home">
         <span className="nav-monogram">NH</span>
         <span className="nav-name">
           Nolan Hughes

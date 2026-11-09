@@ -6,11 +6,11 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nolan-hughes.vercel.app"),
-  title: "Nolan Hughes — Staff / Principal Frontend Engineer | AI-Driven UI",
+  title: "Nolan Hughes: Staff / Principal Frontend Engineer | AI-Driven UI",
   description:
     "Staff-level frontend engineer building interfaces where people and AI agents work together. Core engineer on Mojo, Demandbase's agentic AI workspace. React, TypeScript, generative UI, LLM & MCP tooling, micro frontends.",
   openGraph: {
-    title: "Nolan Hughes — Staff / Principal Frontend Engineer",
+    title: "Nolan Hughes: Staff / Principal Frontend Engineer",
     description:
       "I build interfaces where people & AI agents work together. Core engineer on Mojo @ Demandbase. Generative UI · LLM reliability · Real-time collaboration & voice.",
     url: "https://nolan-hughes.vercel.app",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nolan Hughes — Staff / Principal Frontend Engineer",
+    title: "Nolan Hughes: Staff / Principal Frontend Engineer",
     description:
       "Generative UI, agentic product surfaces, and the LLM reliability layer that makes tool use hold up in production.",
     images: ["/api/avatar"],

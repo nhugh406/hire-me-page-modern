@@ -22,7 +22,7 @@ export default function Home() {
   return (
     <main className="ed">
       <header className="ed-top">
-        <span className="ed-top-brand">NH® — PORTFOLIO, VOL. 2026</span>
+        <span className="ed-top-brand">NH® · PORTFOLIO, VOL. 2026</span>
         <nav className="ed-top-nav">
           <a href="#work">Work</a>
           <a href="#experience">Track record</a>
@@ -42,7 +42,7 @@ export default function Home() {
 
       <section className="ed-hero">
         <div className="ed-hero-main">
-          <p className="ed-kicker">★ {HERO.eyebrow} — {LOCATION}</p>
+          <p className="ed-kicker">★ {HERO.eyebrow} · {LOCATION}</p>
           <h1 className="ed-name">NOLAN<br />HUGHES<span className="ed-dot">.</span></h1>
           <p className="ed-headline">
             I build interfaces where <mark>people &amp; AI agents</mark> work together.
@@ -63,7 +63,7 @@ export default function Home() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={PROFILE_IMAGE} alt="Nolan Hughes" />
           </div>
-          <p className="ed-photo-cap">FIG. 01 — THE ENGINEER IN QUESTION. PARRISH, FL.</p>
+          <p className="ed-photo-cap">FIG. 01 · THE ENGINEER IN QUESTION. PARRISH, FL.</p>
         </div>
       </section>
 
@@ -165,7 +165,7 @@ export default function Home() {
         <p className="ed-contact-tag">LAST PAGE. BEST PAGE.</p>
         <h2 className="ed-contact-big">HIRE<br />NOLAN.</h2>
         <p className="ed-contact-sub">
-          Staff / Principal frontend roles, remote US. Fastest reply by email — I read everything.
+          Staff / Principal frontend roles, remote US. Fastest reply by email: I read everything.
         </p>
         <div className="ed-cta-row">
           <a className="ed-btn ed-btn-ink" href={`mailto:${EMAIL}`}>{EMAIL}</a>
@@ -175,7 +175,7 @@ export default function Home() {
       </section>
 
       <footer className="ed-footer">
-        <span>© 2026 Nolan Hughes — Parrish, FL</span>
+        <span>© 2026 Nolan Hughes · Parrish, FL</span>
         <span>Set in Archivo Black &amp; Space Mono. No glass was blurred in this design.</span>
       </footer>
 

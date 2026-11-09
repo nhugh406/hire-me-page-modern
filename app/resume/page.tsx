@@ -30,7 +30,7 @@ export default function ResumePage() {
         <h2>Summary</h2>
         <p>
           Senior/Principal Frontend Engineer with 10+ years building enterprise web applications,
-          specializing in agentic AI product surfaces — agent-generated dashboards, generative UI,
+          specializing in agentic AI product surfaces: agent-generated dashboards, generative UI,
           real-time collaboration and voice, and the LLM reliability layer that makes tool use hold
           up in production. Deep expertise in React/TypeScript architecture, micro frontends, Nx
           monorepos, and MCP-based tool integrations; ships AI-native features to GA and raises
@@ -48,7 +48,7 @@ export default function ResumePage() {
         {EXPERIENCE.map((job) => (
           <div key={job.company} style={{ marginBottom: 20 }}>
             <p style={{ margin: "0 0 2px" }}>
-              <strong>{job.title} — {job.company}</strong> · {job.period} · {job.location}
+              <strong>{job.title}, {job.company}</strong> · {job.period} · {job.location}
             </p>
             <p style={{ margin: "0 0 6px", fontStyle: "italic" }}>{job.summary}</p>
             <ul style={{ margin: 0 }}>
@@ -65,7 +65,7 @@ export default function ResumePage() {
         </ul>
 
         <h2>Education</h2>
-        <p>B.S. Business Administration &amp; Management — Kutztown University of Pennsylvania</p>
+        <p>B.S. Business Administration &amp; Management, Kutztown University of Pennsylvania</p>
       </div>
     </div>
   );
