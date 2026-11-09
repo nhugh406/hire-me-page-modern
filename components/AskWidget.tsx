@@ -21,6 +21,18 @@ const GREETING: Msg = {
 
 const MARKER = "[[FOLLOWUPS]]";
 
+/** The starter questions live ONLY in the ✦ menu after the first exchange.
+ *  The model still suggests them (or close paraphrases) as follow-ups, which
+ *  reads exactly like the old starter pills lingering — so filter them out. */
+function isStarterTopic(q: string): boolean {
+  const t = q.toLowerCase().replace(/[^a-z0-9 ]/g, " ");
+  if (t.includes("hire")) return true;
+  if (t.includes("numbers")) return true;
+  if (t.includes("github")) return true;
+  if (t.includes("demandbase") && (t.includes("build") || t.includes("building"))) return true;
+  return false;
+}
+
 /** Split a finished reply into its answer text and the agent's follow-ups. */
 function splitFollowups(full: string): { answer: string; followups: string[] } {
   const i = full.indexOf(MARKER);
@@ -132,7 +144,8 @@ export default function AskWidget() {
         role: "assistant",
         content: answer || "I don't have that in his record — try me on Mojo, his numbers, or how to hire him.",
       });
-      if (fu.length) setFollowups(fu);
+      const fresh = fu.filter((q) => !isStarterTopic(q));
+      if (fresh.length) setFollowups(fresh);
     } catch {
       setDraft(null);
       pushMsg({
