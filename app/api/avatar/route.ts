@@ -5,7 +5,7 @@ export async function GET() {
   return new Response(bytes, {
     headers: {
       "Content-Type": "image/jpeg",
-      "Cache-Control": "public, max-age=31536000, immutable",
+      "Cache-Control": "public, max-age=86400",
     },
   });
 }

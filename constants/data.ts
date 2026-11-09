@@ -4,7 +4,7 @@ export const LINKEDIN_URL =
   "https://www.linkedin.com/in/nolan-hughes-532b0721/";
 export const EMAIL = "nhugh406@gmail.com";
 export const LOCATION = "Parrish, FL · Remote (US)";
-export const PROFILE_IMAGE = "/api/avatar";
+export const PROFILE_IMAGE = "/api/avatar?v=2";
 
 export const NAME = "Nolan Hughes";
 export const HEADLINE =
