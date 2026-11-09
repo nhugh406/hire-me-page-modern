@@ -209,7 +209,7 @@ export default function Home() {
               <div className="os-bar"><span style={{ width: `${b.pct}%` }} /></div>
             </div>
           ))}
-          <p className="os-monitor-foot">Uptime: 10+ years. No reboot into management.</p>
+          <p className="os-monitor-foot">Uptime: 10+ years. Still shipping.</p>
         </div>
       )}
 
