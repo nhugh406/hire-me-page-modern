@@ -200,15 +200,6 @@ a.ed-proj:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink)}
   .ed-marquee-track,.stamp,.ask-blocks i,.ask-cursor{animation:none}
 }
 
-/* ---------- Theme toggle ---------- */
-.ed-top-actions{display:flex;align-items:center;gap:12px}
-.ed-theme-btn{
-  font-family:var(--fm);font-weight:700;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;
-  background:var(--paper);color:var(--ink);border:2.5px solid var(--ink);padding:8px 13px;cursor:pointer;
-  box-shadow:4px 4px 0 var(--ink);transition:transform .12s, box-shadow .12s;
-}
-.ed-theme-btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
-
 /* ---------- Ask widget (agent chat) ---------- */
 .ask-fab{
   position:fixed;right:20px;bottom:20px;z-index:400;

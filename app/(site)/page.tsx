@@ -1,5 +1,4 @@
 import Link from "next/link";
-import ThemeToggle from "@/components/ThemeToggle";
 import AskWidget from "@/components/AskWidget";
 import {
   EMAIL,
@@ -30,10 +29,7 @@ export default function Home() {
           <a href="#projects">Projects</a>
           <a href="#skills">Skills</a>
         </nav>
-        <span className="ed-top-actions">
-          <ThemeToggle />
-          <a className="ed-top-cta" href="#contact">Hire me →</a>
-        </span>
+        <a className="ed-top-cta" href="#contact">Hire me →</a>
       </header>
 
       <div className="ed-marquee" aria-hidden="true">
