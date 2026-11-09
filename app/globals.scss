@@ -61,7 +61,7 @@ img{max-width:100%}
 
 /* ---------- Hero ---------- */
 .ed-hero{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(24px,4vw,56px);padding:clamp(30px,5vw,64px) 0 10px;align-items:start}
-.ed-kicker{font-family:var(--fm);font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;background:var(--yellow);display:inline-block;padding:6px 12px;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);margin:0 0 20px}
+.ed-kicker{font-family:var(--fm);font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;background:var(--yellow);color:#16130c;display:inline-block;padding:6px 12px;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);margin:0 0 20px}
 .ed-name{font-family:var(--fd);font-size:clamp(4rem,11.5vw,10.5rem);line-height:.86;letter-spacing:-.01em;margin:0;text-transform:uppercase}
 .ed-dot{color:var(--orange)}
 .ed-headline{font-size:clamp(1.5rem,3vw,2.3rem);font-weight:700;line-height:1.18;margin:26px 0 0;max-width:620px}
@@ -82,8 +82,8 @@ img{max-width:100%}
 .ed-btn-outline-light:hover{box-shadow:2px 2px 0 rgba(0,0,0,.35)}
 .ed-proof{list-style:none;display:flex;gap:10px;flex-wrap:wrap;padding:0;margin:26px 0 0}
 .ed-proof li{font-family:var(--fm);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;border:2px solid var(--ink);padding:7px 12px;background:var(--card)}
-.ed-proof li:nth-child(2){background:var(--yellow)}
-.ed-proof li:nth-child(3){background:var(--pink)}
+.ed-proof li:nth-child(2){background:var(--yellow);color:#16130c}
+.ed-proof li:nth-child(3){background:var(--pink);color:#16130c}
 
 .ed-hero-photo{padding-top:12px}
 .ed-photo-frame{position:relative;border:3px solid var(--ink);box-shadow:14px 14px 0 var(--orange);background:var(--card);line-height:0}
@@ -156,8 +156,11 @@ a.ed-proj:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink)}
 .ed-proj h3{font-family:var(--fd);font-size:1.3rem;margin:10px 0 8px;text-transform:uppercase;line-height:1.15}
 .ed-proj p{color:var(--ink2);line-height:1.6;margin:0}
 .ed-proj-stack{font-family:var(--fm);font-size:.8rem;margin-top:14px!important;color:var(--ink)!important;font-weight:700}
-.ed-proj-featured{background:var(--yellow)}
+.ed-proj-featured{background:var(--yellow);color:#16130c}
 .ed-proj-featured:nth-child(2){background:var(--pink)}
+.ed-proj-featured p{color:#3d382b}
+.ed-proj-featured .ed-proj-badge{color:#2b3bff}
+.ed-proj-featured .ed-proj-stack{color:#16130c!important}
 
 /* ---------- Skills ---------- */
 .ed-skills{padding:clamp(44px,6vw,72px) 0 clamp(36px,5vw,56px)}
@@ -194,7 +197,7 @@ a.ed-proj:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink)}
   .ed-top-nav{display:none}
 }
 @media (prefers-reduced-motion:reduce){
-  .ed-marquee-track,.stamp{animation:none}
+  .ed-marquee-track,.stamp,.ask-blocks i,.ask-cursor{animation:none}
 }
 
 /* ---------- Theme toggle ---------- */
@@ -232,6 +235,19 @@ a.ed-proj:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink)}
 .ask-msg-user{background:var(--blue);color:#fff;align-self:flex-end;box-shadow:4px 4px 0 var(--ink)}
 .ask-msg-error{background:var(--pink);color:#16130c;align-self:flex-start}
 .ask-typing{align-self:flex-start;font-family:var(--fm);font-size:.8rem;color:var(--ink2)}
+.ask-thinking{
+  align-self:flex-start;display:flex;align-items:center;gap:11px;
+  padding:11px 14px;border:2.5px solid var(--ink);background:var(--card);box-shadow:4px 4px 0 var(--ink);
+}
+.ask-blocks{display:flex;gap:5px;align-items:flex-end;height:16px}
+.ask-blocks i{display:block;width:11px;height:11px;animation:ask-bop .9s ease-in-out infinite}
+.ask-blocks i:nth-child(1){background:var(--orange)}
+.ask-blocks i:nth-child(2){background:var(--blue);animation-delay:.15s}
+.ask-blocks i:nth-child(3){background:var(--yellow);animation-delay:.3s}
+@keyframes ask-bop{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.ask-thinking-label{font-family:var(--fm);font-size:.76rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+.ask-cursor{display:inline-block;width:9px;height:1.02em;margin-left:2px;background:var(--orange);vertical-align:text-bottom;animation:ask-blink .8s steps(1) infinite}
+@keyframes ask-blink{50%{opacity:0}}
 .ask-chips{flex:0 0 auto;display:flex;gap:8px;flex-wrap:wrap;padding:0 14px 10px}
 .ask-chip{
   font-family:var(--fm);font-size:.74rem;font-weight:700;letter-spacing:.03em;cursor:pointer;

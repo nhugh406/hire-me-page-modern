@@ -22,16 +22,19 @@ export default function AskWidget() {
   const [messages, setMessages] = useState<Msg[]>([GREETING]);
   const [input, setInput] = useState("");
   const [busy, setBusy] = useState(false);
+  const [draft, setDraft] = useState<string | null>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages, busy, open]);
+  }, [messages, busy, draft, open]);
 
   useEffect(() => {
     if (open) inputRef.current?.focus();
   }, [open ]);
+
+  const pushMsg = (msg: Msg) => setMessages((m) => [...m, msg]);
 
   const send = async (text: string) => {
     const q = text.trim();
@@ -40,44 +43,71 @@ export default function AskWidget() {
     setMessages(next);
     setInput("");
     setBusy(true);
+    setDraft(null);
     try {
       const r = await fetch("/api/ask", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ messages: next.map((m) => ({ role: m.role, content: m.content })) }),
       });
-      const data = await r.json().catch(() => ({}));
-      if (r.status === 503 || data?.error === "not_configured") {
-        setMessages((m) => [
-          ...m,
-          {
+
+      const contentType = r.headers.get("content-type") || "";
+
+      // JSON responses: config errors, upstream errors, and the rate-limit reply.
+      if (!r.ok || contentType.includes("application/json") || !r.body) {
+        const data = await r.json().catch(() => ({}));
+        if (r.status === 503 || data?.error === "not_configured") {
+          pushMsg({
             role: "assistant",
             error: true,
             content:
               "The agent isn't switched on yet — but Nolan is. Email him at nhugh406@gmail.com and he'll answer personally.",
-          },
-        ]);
-      } else if (typeof data?.reply === "string" && data.reply) {
-        setMessages((m) => [...m, { role: "assistant", content: data.reply }]);
-      } else {
-        setMessages((m) => [
-          ...m,
-          {
+          });
+        } else if (typeof data?.reply === "string" && data.reply) {
+          pushMsg({ role: "assistant", content: data.reply });
+        } else {
+          pushMsg({
             role: "assistant",
             error: true,
             content: "Something hiccuped on my end. Email Nolan at nhugh406@gmail.com — fastest route anyway.",
-          },
-        ]);
+          });
+        }
+        return;
       }
+
+      // Streaming plain-text reply: render tokens as they arrive.
+      // The thinking animation gets a minimum on-screen beat (~0.9s) so it
+      // actually registers before the first token lands.
+      const reader = r.body.getReader();
+      const decoder = new TextDecoder();
+      const startedAt = Date.now();
+      let acc = "";
+      let revealed = false;
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        acc += decoder.decode(value, { stream: true });
+        if (!revealed) {
+          const wait = 900 - (Date.now() - startedAt);
+          if (wait > 0) await new Promise((res) => setTimeout(res, wait));
+          revealed = true;
+        }
+        setDraft(acc);
+      }
+      if (!revealed) setDraft(acc);
+      acc = acc.trim();
+      setDraft(null);
+      pushMsg({
+        role: "assistant",
+        content: acc || "I don't have that in his record — try me on Mojo, his numbers, or how to hire him.",
+      });
     } catch {
-      setMessages((m) => [
-        ...m,
-        {
-          role: "assistant",
-          error: true,
-          content: "Couldn't reach the agent just now. Email Nolan at nhugh406@gmail.com — fastest route anyway.",
-        },
-      ]);
+      setDraft(null);
+      pushMsg({
+        role: "assistant",
+        error: true,
+        content: "Couldn't reach the agent just now. Email Nolan at nhugh406@gmail.com — fastest route anyway.",
+      });
     } finally {
       setBusy(false);
     }
@@ -112,7 +142,22 @@ export default function AskWidget() {
             {m.content}
           </div>
         ))}
-        {busy && <div className="ask-typing">agent is typing…</div>}
+        {draft !== null && (
+          <div className="ask-msg ask-msg-agent">
+            {draft}
+            <span className="ask-cursor" aria-hidden="true" />
+          </div>
+        )}
+        {busy && draft === null && (
+          <div className="ask-thinking" role="status" aria-label="Agent is thinking">
+            <span className="ask-blocks" aria-hidden="true">
+              <i />
+              <i />
+              <i />
+            </span>
+            <span className="ask-thinking-label">Agent at work</span>
+          </div>
+        )}
       </div>
 
       <div className="ask-chips">
