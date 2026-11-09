@@ -21,6 +21,18 @@ const GREETING: Msg = {
 
 const MARKER = "[[FOLLOWUPS]]";
 
+/** The starter questions live ONLY in the ✦ menu after the first exchange.
+ *  The model still suggests them (or close paraphrases) as follow-ups, which
+ *  reads exactly like the old starter pills lingering — so filter them out. */
+function isStarterTopic(q: string): boolean {
+  const t = q.toLowerCase().replace(/[^a-z0-9 ]/g, " ");
+  if (t.includes("hire")) return true;
+  if (t.includes("numbers")) return true;
+  if (t.includes("github")) return true;
+  if (t.includes("demandbase") && (t.includes("build") || t.includes("building"))) return true;
+  return false;
+}
+
 /** Split a finished reply into its answer text and the agent's follow-ups. */
 function splitFollowups(full: string): { answer: string; followups: string[] } {
   const i = full.indexOf(MARKER);
@@ -60,9 +72,8 @@ export default function AskWidget() {
     bodyRef.current?.scrollTo({ top: bodyRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, busy, draft, followups, open]);
 
-  useEffect(() => {
-    if (open) inputRef.current?.focus();
-  }, [open ]);
+  // No auto-focus on open (Nolan's call): the quick options are the primary
+  // path, and auto-focusing pops the mobile keyboard and shifts the panel.
 
   const pushMsg = (msg: Msg) => setMessages((m) => [...m, msg]);
 
@@ -133,7 +144,8 @@ export default function AskWidget() {
         role: "assistant",
         content: answer || "I don't have that in his record — try me on Mojo, his numbers, or how to hire him.",
       });
-      if (fu.length) setFollowups(fu);
+      const fresh = fu.filter((q) => !isStarterTopic(q));
+      if (fresh.length) setFollowups(fresh);
     } catch {
       setDraft(null);
       pushMsg({
@@ -154,12 +166,11 @@ export default function AskWidget() {
     );
   }
 
-  const askedQuestions = new Set(
-    messages.filter((m) => m.role === "user").map((m) => m.content.trim().toLowerCase())
-  );
-  const chipsToShow: string[] =
-    followups ??
-    STARTER_CHIPS.filter((c) => !askedQuestions.has(c.trim().toLowerCase()));
+  // Starter chips appear ONLY before the first exchange. After that, the row
+  // shows just the agent's dynamic follow-ups (nothing while a reply is in
+  // flight or when a reply returns none) — the starters live in the ✦ menu.
+  const hasAsked = messages.some((m) => m.role === "user");
+  const chipsToShow: string[] = !hasAsked ? STARTER_CHIPS : followups ?? [];
 
   return (
     <section className="ask-panel" aria-label="Ask Nolan's agent">
