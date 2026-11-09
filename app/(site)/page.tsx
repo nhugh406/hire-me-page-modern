@@ -132,7 +132,7 @@ export default function Home() {
         </Out>
 
         <In>Last one — why you, over the other Staff candidates?</In>
-        <Out>Because I&apos;ve already shipped the thing most teams are about to attempt: real product where an AI agent does work next to humans — with the reliability scars to prove it. And I stay an IC on purpose. You&apos;re hiring depth, not a future meeting.</Out>
+        <Out>Because I&apos;ve already shipped the thing most teams are about to attempt: real product where an AI agent does work next to humans — with the reliability scars to prove it. And I&apos;ve sat in both chairs: I led a team of 12 before going back to deep IC work. Depth is my home base — leadership&apos;s in range when a role calls for it.</Out>
 
         <In>When can you start the conversation?</In>
         <Out>
