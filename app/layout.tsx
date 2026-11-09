@@ -15,7 +15,7 @@ export const metadata: Metadata = {
       "I build interfaces where people & AI agents work together. Core engineer on Mojo @ Demandbase. Generative UI · LLM reliability · Real-time collaboration & voice.",
     url: "https://nolan-hughes.vercel.app",
     siteName: "Nolan Hughes",
-    images: [{ url: "/api/avatar", width: 852, height: 852, alt: "Nolan Hughes" }],
+    images: [{ url: "/api/avatar", width: 1168, height: 1159, alt: "Nolan Hughes" }],
     type: "website",
   },
   twitter: {
