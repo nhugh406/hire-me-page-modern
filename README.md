@@ -1,4 +1,4 @@
-# Nolan Hughes — Hire Me (Modern)
+# Nolan Hughes: Hire Me (Modern)
 
 A modern, eye-catching personal "Hire Me" portfolio site built with:
 
